@@ -1,21 +1,29 @@
 <template>
-  <div class="TheHeader">
-    <HeaderNaigation />
-  </div>
+  <header>
+    <TheHeaderTop />
+    <hr :class="$style.line" />
+    <TheHeaderNaigation />
+  </header>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import HeaderNaigation from './TheHeaderNavigation.vue';
+  import TheHeaderNaigation from './TheHeaderNavigation.vue';
+  import TheHeaderTop from './TheHeaderTop.vue';
 
   export default defineComponent({
     name: 'TheHeader',
     components: {
-      HeaderNaigation
+      TheHeaderNaigation,
+      TheHeaderTop
     }
   });
 </script>
 
-<style lang='scss' scoped>
-
+<style lang='scss' module>
+  .line {
+    border: 1px solid #cdcdcd;
+    width: 100%;
+    margin-bottom: 20px;
+  }
 </style>
