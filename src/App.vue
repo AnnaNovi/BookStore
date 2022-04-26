@@ -1,30 +1,49 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="appWrapper">
+    <TheHeader />
+    <router-view></router-view>
+  </div>
+    <TheFooter />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent } from 'vue';
+import TheHeader from './components/TheHeader.vue';
+import TheFooter from './components/TheFooter.vue'
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default defineComponent({
+  name: 'App',
+  components: {
+    TheHeader,
+    TheFooter
   }
+});
+</script>
+
+<style lang="scss">
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  src: url("./assets/fonts/Montserrat-Regular.eot");
+  src: url("./assets/fonts/Montserrat-Regular.woff") format("woff"),
+    url("./assets/fonts/Montserrat-Regular.ttf") format("truetype"),
+    url("./assets/fonts/Montserrat-Regular.otf") format("opentype"),
+    url("./assets/fonts/Montserrat-Regular.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.appWrapper{
+  padding: 0 120px;
 }
 </style>
