@@ -8,9 +8,9 @@
         </button>
         <button
           v-for="link in NavigationLinks"
-          :class="{[$style.link]: true, [$style.active]: link.active}"
           :key="link.name"
-          @click="changeActiveLink(link.name)"
+          :class="{[$style.link]: true, [$style.active]: link.active}"
+          @click="changePage(link.name, link.path)"
         > {{ link.title }}</button>
       </div>
     </div>
@@ -35,7 +35,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex';
 
   export default defineComponent({
     name: 'TheHeaderNavigation',
@@ -47,7 +47,11 @@
     methods: {
       ...mapActions([
         'changeActiveLink'
-      ])
+      ]),
+      changePage(linkName: string, linkPath: string){
+        this.changeActiveLink(linkName);
+        this.$router.push(linkPath);
+      }
     }
   });
 </script>

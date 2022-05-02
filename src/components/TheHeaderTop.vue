@@ -4,7 +4,7 @@
       <svg :class="$style.icon">
         <use href="../assets/sprite.svg#phone"/>
       </svg>
-      +7 999 140 00 00
+      <a href="tel:+79991400000" :class="$style.phoneNumber">+7 999 140 00 00</a>
     </div>
     <img
       :class="$style.logo"
@@ -97,12 +97,15 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
-    color: #606060;
     white-space: nowrap;
     svg {
       width: 16px;
       height: 16px;
       margin-right: 13px;
     }
+  }
+  .phoneNumber {
+    color: #606060;
+    cursor: pointer;
   }
 </style>

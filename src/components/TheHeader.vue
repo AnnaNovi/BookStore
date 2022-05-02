@@ -24,6 +24,5 @@
   .line {
     border: 1px solid #cdcdcd;
     width: 100%;
-    margin-bottom: 20px;
   }
 </style>
