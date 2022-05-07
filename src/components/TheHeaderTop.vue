@@ -8,6 +8,7 @@
     </div>
     <img
       :class="$style.logo"
+      @click="this.$router.push('/')"
       src="../assets/images/logo.png"
       alt="Логотип компании"
     >
@@ -18,7 +19,7 @@
       <button
         :class="[$style.iconButton, $style.like]"
         :data-favoritesSize="favoritesSize"
-        @click="handleFavoriteButton"
+        @click="this.$router.push('/favorites')"
       >
         <svg :class="$style.icon">
           <use href="../assets/sprite.svg#like"/>
@@ -26,7 +27,7 @@
       </button>
       <button
         :class="$style.iconButton"
-        @click="handleCartButton"
+        @click="this.$router.push('/cart')"
       >
         <svg :class="$style.icon">
           <use href="../assets/sprite.svg#cart"/>
@@ -38,7 +39,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default defineComponent({
     name: 'TheHeaderTop',
@@ -47,19 +48,6 @@
         'favoritesSize'
       ])
     },
-    methods: {
-      ...mapActions([
-        'changeActiveLink'
-      ]),
-      handleFavoriteButton(){
-        this.$router.push('/favorites');
-        this.changeActiveLink('favorites');
-      },
-      handleCartButton(){
-        this.$router.push('/cart');
-        this.changeActiveLink('cart');
-      },
-    }
   });
 </script>
 

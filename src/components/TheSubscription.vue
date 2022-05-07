@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.subscription" v-if="ActiveLink.subscription">
+  <div :class="$style.subscription" v-if="ActiveLink.meta.subscription">
     <h4 :class="$style.title">Не можете определиться с выбором?</h4>
     <h5 :class="$style.subtitle">Закажите бесплатную консультацию с нашим книжным сомелье</h5>
     <form
@@ -23,7 +23,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapGetters } from 'vuex';
 
   export default defineComponent({
     name: 'TheSubscription',
@@ -36,9 +35,9 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'ActiveLink'
-      ])
+      ActiveLink(){
+        return this.$router.currentRoute.value;
+      }
     },
     methods: {
       sendForm(){

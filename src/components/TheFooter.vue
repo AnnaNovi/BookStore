@@ -7,11 +7,11 @@
     >
     <div :class="$style.linkList">
       <button
-        v-for="link in NavigationLinks"
+        v-for="link in navigationLinks"
         :class="$style.link"
         :key="link.name"
-        @click="changeActiveLink(link.name)"
-      > {{ link.title }}</button>
+        @click="this.$router.push(link.path)"
+      > {{ link.meta.title }}</button>
     </div>
     <div :class="$style.phoneBlock">
       <svg :class="$style.icon">
@@ -24,19 +24,18 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapActions, mapGetters } from 'vuex';
+  import { RouteRecordRaw } from 'vue-router';
 
   export default defineComponent({
     name: 'TheFooter',
-    computed: {
-      ...mapGetters([
-        'NavigationLinks'
-      ])
+    data(){
+      return {
+        navigationLinks: [] as RouteRecordRaw[],
+      }
     },
-    methods: {
-      ...mapActions([
-        'changeActiveLink'
-      ])
+    mounted(){
+      const routerArray = this.$router.options.routes.filter(link => link.meta?.title && !['/', '/favorites', '/cart'].includes(link.path));
+      this.navigationLinks = [...routerArray];
     }
   });
 </script>

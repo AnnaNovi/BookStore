@@ -7,11 +7,14 @@
           Подразделы
         </button>
         <button
-          v-for="link in NavigationLinks"
+          v-for="link in navigationLinks"
           :key="link.name"
-          :class="{[$style.link]: true, [$style.active]: link.active}"
-          @click="changePage(link.name, link.path)"
-        > {{ link.title }}</button>
+          :class="{
+            [$style.link]: true,
+            [$style.active]: checkActiveLink(link.name)
+          }"
+          @click="this.$router.push(link.path)"
+        > {{ link.meta.title }}</button>
       </div>
     </div>
     <div :class="$style.socials">
@@ -35,23 +38,23 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapActions, mapGetters } from 'vuex';
+  import { RouteRecordRaw } from 'vue-router'
 
   export default defineComponent({
     name: 'TheHeaderNavigation',
-    computed: {
-      ...mapGetters([
-        'NavigationLinks'
-      ])
+    data(){
+      return {
+        navigationLinks: [] as RouteRecordRaw[],
+      }
     },
     methods: {
-      ...mapActions([
-        'changeActiveLink'
-      ]),
-      changePage(linkName: string, linkPath: string){
-        this.changeActiveLink(linkName);
-        this.$router.push(linkPath);
+      checkActiveLink(linkName: string){
+        return (linkName === this.$router.currentRoute.value.name) ? true : false;
       }
+    },
+    mounted(){
+      const routerArray = this.$router.options.routes.filter(link => link.meta?.title && !['/', '/favorites', '/cart'].includes(link.path));
+      this.navigationLinks = [...routerArray];
     }
   });
 </script>

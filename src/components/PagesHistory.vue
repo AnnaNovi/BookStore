@@ -2,7 +2,7 @@
   <div :class="$style.pagesHistory" v-if="ActiveLink.name !== 'home'">
     <button
       :class="$style.pageHistoryLink"
-      @click="changePage('home', '/')"
+      @click="this.$router.push('/')"
     >
       Главная
     </button>
@@ -11,31 +11,20 @@
     </svg>
     <button
       :class="$style.pageHistoryLink"
-      @click="changePage(ActiveLink.name, ActiveLink.path)"
     >
-      {{ ActiveLink.title }}
+      {{ ActiveLink.meta.title }}
     </button>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapActions, mapGetters } from 'vuex';
 
   export default defineComponent({
     name: 'PagesHistory',
     computed: {
-      ...mapGetters([
-        'ActiveLink'
-      ])
-    },
-    methods: {
-      ...mapActions([
-        'changeActiveLink'
-      ]),
-      changePage(linkName: string, linkPath: string){
-        this.changeActiveLink(linkName);
-        this.$router.push(linkPath);
+      ActiveLink(){
+        return this.$router.currentRoute.value;
       }
     }
   });
