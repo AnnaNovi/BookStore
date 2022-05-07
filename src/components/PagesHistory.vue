@@ -54,6 +54,7 @@
     color: #A7A7A7;
     background: none;
     border: none;
+    cursor: pointer;
   }
   .icon {
     width: 8px;

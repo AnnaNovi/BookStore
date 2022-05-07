@@ -15,13 +15,20 @@
       <svg :class="$style.icon">
         <use href="../assets/sprite.svg#loupe"/>
       </svg>
-      <button :class="$style.iconButton">
-        <svg :class="[$style.icon, $style.iconInfo]">
+      <button
+        :class="[$style.iconButton, $style.like]"
+        :data-favoritesSize="favoritesSize"
+        @click="handleFavoriteButton"
+      >
+        <svg :class="$style.icon">
           <use href="../assets/sprite.svg#like"/>
         </svg>
       </button>
-      <button :class="$style.iconButton">
-        <svg :class="[$style.icon, $style.iconInfo]">
+      <button
+        :class="$style.iconButton"
+        @click="handleCartButton"
+      >
+        <svg :class="$style.icon">
           <use href="../assets/sprite.svg#cart"/>
         </svg>
       </button>
@@ -31,9 +38,28 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default defineComponent({
     name: 'TheHeaderTop',
+    computed: {
+      ...mapGetters([
+        'favoritesSize'
+      ])
+    },
+    methods: {
+      ...mapActions([
+        'changeActiveLink'
+      ]),
+      handleFavoriteButton(){
+        this.$router.push('/favorites');
+        this.changeActiveLink('favorites');
+      },
+      handleCartButton(){
+        this.$router.push('/cart');
+        this.changeActiveLink('cart');
+      },
+    }
   });
 </script>
 
@@ -70,18 +96,22 @@
       box-sizing: border-box;
       font-weight: normal;
       font-size: 10px;
+      text-align: center;
+      padding: 2px;
       color: #ffffff;
       position: absolute;
       bottom: 20px;
       left: 17px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       z-index: 5;
       @media (max-width: 575px) {
         bottom: 15px;
         left: 12px;
       }
+    }
+  }
+  .like {
+    &::before {
+      content: attr(data-favoritesSize);
     }
   }
   .logo {
