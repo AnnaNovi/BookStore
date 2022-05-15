@@ -44,7 +44,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 30vh;
     font-weight: 700;
     font-size: 36px;
     color: #887569;

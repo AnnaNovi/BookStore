@@ -1,9 +1,9 @@
 <template>
   <div class="appWrapper">
-    <div class="headerWrapper">
-      <TheHeader />
-      <PagesHistory />
-      <router-view></router-view>
+    <div>
+      <TheHeader style="padding: 0 120px;"/>
+      <PagesHistory style="padding: 0 120px;"/>
+      <router-view style="padding: 0 120px;"></router-view>
     </div>
     <div>
       <TheSubscription />
@@ -34,7 +34,7 @@ export default defineComponent({
     ])
   },
   mounted(){
-    if(localStorage['_favoritesList']) {
+    if(localStorage['favoritesList']) {
       this.addFavoritesBookFromLocalStorage();
     }
   }
@@ -54,12 +54,19 @@ body {
   max-width: 1440px;
   margin: 0 auto;
 }
-.headerWrapper{
-  padding: 0 120px;
-}
 .appWrapper {
   height: 100vh;
-  display: grid;
-  align-content: space-between;
+  width: 100vw;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+.swiper-wrapper {
+  align-items: stretch;
 }
 </style>

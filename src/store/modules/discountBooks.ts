@@ -7,24 +7,20 @@ interface booksType {
   title: string,
   price: number,
   image: string,
-  key: string
+  key: string,
+  discount: number
 }
 export interface discountBooksStateType {
   discountBooks: booksType[],
-  discountValue: number
 }
 
 export const discountBooks = ({
   state: () => ({
     discountBooks: [],
-    discountValue: 15
   }),
   getters: {
     discountBooksList(state: discountBooksStateType){
       return state.discountBooks;
-    },
-    discountValue(state: discountBooksStateType){
-      return state.discountValue;
     },
   },
   mutations: {
@@ -33,8 +29,19 @@ export const discountBooks = ({
     },
   },
   actions: {
-    async getDiscountBooks({ commit }: ActionContext<discountBooksStateType, RootState>, {limit = 16, offset = 16}) {
-      await fetch(`https://openlibrary.org/search.json?q=language%3Arus&limit=${limit}&offset=${offset}`)
+    async getDiscountBooks({ commit }: ActionContext<discountBooksStateType, RootState>, page = 1) {
+      const fields = `
+        author_name,
+        author_key,
+        title,
+        number_of_pages_median,
+        cover_edition_key,
+        key
+      `;
+      const discount = false;
+      const limit = 16;
+      const url = `https://openlibrary.org/search.json?q=language%3Arus&public_scan_b=${discount}&limit=${limit}&page=${page}&fields=${fields}`;
+      await fetch(url)
         .then(response => response.json())
         .then(data => {
           const arrayOfBooks = data.docs.map(function(item: any){
@@ -45,6 +52,7 @@ export const discountBooks = ({
                 price: item.number_of_pages_median,
                 image: item.cover_edition_key,
                 key: item.key,
+                discount: Math.floor(Math.random() * (20 - 5 + 1)) + 5
               }
           });
           commit('GET_DISCOUNT_BOOKS', arrayOfBooks);

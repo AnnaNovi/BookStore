@@ -7,7 +7,6 @@
         v-for="(book, index) in discountBooksList"
         :key="index"
         :book="book"
-        :discount="true"
       />
     </div>
   </section>
@@ -49,7 +48,7 @@ export default defineComponent({
     if(this.discountBooksList.length) {
       this.loadContent = false;
     } else {
-      this.getDiscountBooks({limit: 16, offset: 0});
+      this.getDiscountBooks();
     }
   }
 });

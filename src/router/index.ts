@@ -7,7 +7,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     meta: {
       title: 'Главная',
-      subscription: false,
+      subscription: true,
     },
     component: HomeView
   },
@@ -84,7 +84,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/inProgress',
-    alias: ['/cart'],
+    alias: ['/catalog'],
     name: 'inProgress',
     component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
   },
