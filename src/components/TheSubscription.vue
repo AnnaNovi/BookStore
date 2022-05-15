@@ -1,7 +1,7 @@
 <template>
-  <div :class="$style.subscription" v-if="ActiveLink.meta.subscription">
-    <h4 :class="$style.title">Не можете определиться с выбором?</h4>
-    <h5 :class="$style.subtitle">Закажите бесплатную консультацию с нашим книжным сомелье</h5>
+  <div :class="$style.subscription" v-if="activeLink.meta.subscription">
+    <h4 :class="$style.title">{{ title }}</h4>
+    <h5 :class="$style.subtitle">{{ subtitle }}</h5>
     <form
       :class="$style.form"
       @submit.prevent="sendForm"
@@ -15,6 +15,13 @@
         type="tel"
         placeholder="Ваш номер"
         v-model.lazy="subscription.phone"
+        v-if="!eventPage"
+      >
+      <input
+        type="email"
+        placeholder="E-mail"
+        v-model.lazy="subscription.email"
+        v-if="eventPage"
       >
       <button type="submit" :class="$style.submitButton">Оставить заявку</button>
     </form>
@@ -31,13 +38,22 @@
         subscription: {
           name: '',
           phone: ''
-        }
+        },
       }
     },
     computed: {
-      ActiveLink(){
+      activeLink(){
         return this.$router.currentRoute.value;
-      }
+      },
+      title(): string{
+        return (this.activeLink.name === 'events') ? 'Хотите быть в курсе предстоящих мероприятий?' : 'Не можете определиться с выбором?';
+      },
+      subtitle(): string{
+        return (this.activeLink.name === 'events') ? 'Подпишитесь на нашу рассылку и вы узнаете первым о главных событиях ' : 'Закажите бесплатную консультацию с нашим книжным сомелье';
+      },
+      eventPage(): boolean{
+        return (this.activeLink.name === 'events') ? true : false;
+      },
     },
     methods: {
       sendForm(){
@@ -45,7 +61,7 @@
         this.subscription.phone = '';
         console.log(this.subscription);
       }
-    }
+    },
   });
 </script>
 

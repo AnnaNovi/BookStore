@@ -106,6 +106,7 @@
     margin: 12px 0 28px;
     width: 155px;
     height: 84px;
+    cursor: pointer;
   }
   .iconsBlock {
     display: flex;

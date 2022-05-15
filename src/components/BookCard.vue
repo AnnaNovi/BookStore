@@ -5,7 +5,17 @@
     </div>
     <div :class="$style.author">{{ this.book.author }}</div>
     <div :class="$style.title">{{ this.book.title }}</div>
-    <div :class="$style.price">{{ this.book.price }}</div>
+    <div :class="$style.price">
+      <span
+        :class="{[$style.lastPrice]: !!discountPrice}"
+      >
+        {{ this.book.price }}
+      </span>
+      <span
+        v-if="!!discountPrice"
+        
+      >{{ discountPrice }}</span>
+    </div>
     <button
       :class="[$style.like, {[$style.active]: this.like}]"
       @click="handleLikeButton(this.book.key)"
@@ -23,8 +33,8 @@
     </button>
     <div
       :class="$style.sale"
-      v-if="discount"
-    >{{ this.discountValue }}%</div>
+      v-if="this.book.discount"
+    >{{ this.book.discount }}%</div>
   </div>
 </template>
 
@@ -39,7 +49,8 @@
     title: string,
     price: number,
     image: string,
-    key: string
+    key: string,
+    discount: number | null
   }
 
   export default defineComponent({
@@ -57,18 +68,16 @@
         type: String,
         default: 'M'
       },
-      discount: {
-        type: Boolean,
-        default: false
-      }
     },
     computed: {
       ...mapGetters([
         'favoritesList',
-        'discountValue'
       ]),
-      imageSrc(){
+      imageSrc(): string{
         return `https://covers.openlibrary.org/b/olid/${this.book?.image}-${this.imageSize}.jpg`
+      },
+      discountPrice(): number | null{
+        return (this.book?.discount) ? Math.ceil(this.book?.price * (100 - this.book?.discount)/100) : null; 
       }
     },
     methods: {
@@ -79,7 +88,7 @@
       handleLikeButton(bookKey: string){
         this.toggleFavoritesBook(bookKey);
         this.like = !this.like;
-        localStorage.setItem('_favoritesList', JSON.stringify([...this.favoritesList]));
+        localStorage.setItem('favoritesList', JSON.stringify([...this.favoritesList]));
       }
     },
     mounted(){
@@ -97,6 +106,7 @@
     border-radius: 5px;
     padding: 31px 30px 13px 30px;
     position: relative;
+    max-width: 279px;
     @media (max-width: 575px) {
       padding: 5px 19px 8px 19px;
     }
@@ -144,9 +154,12 @@
       font-size: 14px;
       line-height: 17px;
     }
-    &:after {
+    span:after {
       content: '\20BD';
       margin-left: 3px;
+    }
+    span:first-child {
+      margin-right: 15px;
     }
   }
   .like {
@@ -232,5 +245,8 @@
       font-size: 12px;
       line-height: 15px;
     }
+  }
+  .lastPrice {
+    text-decoration: line-through;
   }
 </style>

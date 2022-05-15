@@ -7,7 +7,8 @@ interface booksType {
   title: string,
   price: number,
   image: string,
-  key: string
+  key: string,
+  discount: number | null
 }
 
 export interface favoritesStateType {
@@ -61,15 +62,24 @@ export const favorites = ({
       return state.favorites.has(bookKey);
     },
     addFavoritesBookFromLocalStorage({ commit }: ActionContext<favoritesStateType, RootState>) {
-      const booksKey = localStorage.getItem('_favoritesList');
+      const booksKey = localStorage.getItem('favoritesList');
       commit('ADD_FAVORITES_BOOK_FROM_LOCALSTORAGE', booksKey);
     },
     getFavoriteBooks({ commit, state }: ActionContext<favoritesStateType, RootState>) {
       state.favoriteBooks.length = 0;
+      const fields = `
+        author_name,
+        author_key,
+        title,
+        number_of_pages_median,
+        cover_edition_key,
+        key,
+        public_scan_b
+      `;
       state.favorites.forEach(async(bookIdPath: string) => {
         const bookIdSeparate = bookIdPath.split('/');
         const bookId = bookIdSeparate[bookIdSeparate.length - 1];
-        await fetch(`https://openlibrary.org/search.json?q=${bookId}`)
+        await fetch(`https://openlibrary.org/search.json?q=${bookId}&fields=${fields}`)
           .then(response => response.json())
           .then(data => {
             const arrayOfBooks = data.docs.map(function(item: any){
@@ -80,6 +90,7 @@ export const favorites = ({
                   price: item.number_of_pages_median,
                   image: item.cover_edition_key,
                   key: item.key,
+                  discount: (item.public_scan_b) ? null : (Math.floor(Math.random() * (20 - 5 + 1)) + 5)
                 }
             });
             commit('GET_FAVORITES_BOOKS', arrayOfBooks);
