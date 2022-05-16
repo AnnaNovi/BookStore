@@ -1,5 +1,5 @@
 <template>
-  <footer :class="$style.wrapper">
+  <footer :class="[$style.wrapper, {[$style.wrapperMarginTop]: !addMarginTop}]">
     <img
       :class="$style.logo"
       src="../assets/images/logo.png"
@@ -36,6 +36,11 @@
     mounted(){
       const routerArray = this.$router.options.routes.filter(link => link.meta?.title && !['/', '/favorites', '/cart'].includes(link.path));
       this.navigationLinks = [...routerArray];
+    },
+    computed:{
+      addMarginTop(){
+        return this.$router.currentRoute.value.meta.subscription;
+      }
     }
   });
 </script>
@@ -48,6 +53,9 @@
     align-items: center;
     background: #F5F5F5;
     padding: 0 120px;
+    &.wrapperMarginTop {
+      margin-top: 30px;
+    }
   }
   .logo {
     margin: 19px 0 33px;

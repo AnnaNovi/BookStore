@@ -52,8 +52,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'delivery',
     meta: {
       title: 'Доставка и оплата',
+      subscription: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "favorites" */ '../views/DeliveryView.vue')
   },
   {
     path: '/contacts',
@@ -62,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Контакты',
       subscription: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "favorites" */ '../views/ContactsView.vue')
   },
   {
     path: '/favorites',
