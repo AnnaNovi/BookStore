@@ -49,7 +49,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    color: #887569;
+    color: $BROWN;
     border: 1px solid #887569;
     border-radius: 8px;
     background: none;

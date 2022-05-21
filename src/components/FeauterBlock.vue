@@ -41,7 +41,7 @@
     font-weight: 300;
     font-size: 30px;
     line-height: 37px;
-    color: #887569;
+    color: $BROWN;
     width: 58px;
     height: 58px;
     display: flex;

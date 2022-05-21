@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
+import { router } from './router';
 import store from './store';
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import { MAP_KEY } from './values';

@@ -90,7 +90,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
-    color: #887569;
+    color: $BROWN;
     padding: 23px 80px;
     background: rgba(255, 255, 255, 0.8);
     border: none;
@@ -107,6 +107,7 @@
     border: none;
     transform: translate(0%, -50%);
     top: 50%;
+    cursor: pointer;
   }
   .buttonForSwiperPrev {
     left: -30px;

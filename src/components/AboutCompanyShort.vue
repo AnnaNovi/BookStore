@@ -32,7 +32,7 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
-    color: #887569;
+    color: $BROWN;
     text-transform: uppercase;
   }
   .title {

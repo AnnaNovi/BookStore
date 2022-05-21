@@ -78,7 +78,7 @@
     transition: 0.4s;
     cursor: pointer;
     &:hover {
-      color: #887569;
+      color: $BROWN;
       transition: 0.7s;
     }
   }
