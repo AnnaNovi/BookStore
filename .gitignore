@@ -25,3 +25,4 @@ pnpm-debug.log*
 # Files
 src/components/Template.vue
 src/values.ts
+src/assets/_variables.scss

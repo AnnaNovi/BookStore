@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -45,7 +45,15 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Блог',
       subscription: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "blog" */ '../views/BlogView.vue')
+  },
+  {
+    path: '/blog/:id',
+    name: 'post',
+    meta: {
+      subscription: false,
+    },
+    component: () => import(/* webpackChunkName: "post" */ '../views/BlogSingleView.vue')
   },
   {
     path: '/delivery',
@@ -54,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Доставка и оплата',
       subscription: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/DeliveryView.vue')
+    component: () => import(/* webpackChunkName: "delivery" */ '../views/DeliveryView.vue')
   },
   {
     path: '/contacts',
@@ -63,7 +71,7 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Контакты',
       subscription: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/ContactsView.vue')
+    component: () => import(/* webpackChunkName: "contacts" */ '../views/ContactsView.vue')
   },
   {
     path: '/favorites',
@@ -81,24 +89,24 @@ const routes: Array<RouteRecordRaw> = [
       title: 'Корзина',
       subscription: true,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "cart" */ '../views/PageInProgress.vue')
   },
   {
     path: '/inProgress',
     alias: ['/catalog'],
     name: 'inProgress',
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "inProgress" */ '../views/PageInProgress.vue')
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'notfound',
-    component: () => import(/* webpackChunkName: "discounts" */ '../views/PageNotFound.vue')
+    component: () => import(/* webpackChunkName: "pathMatch" */ '../views/PageNotFound.vue')
   },
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+export const router = createRouter({
+  history: createWebHashHistory(),
   routes
 })
 
-export default router
+/* process.env.BASE_URL */

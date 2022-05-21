@@ -113,8 +113,7 @@
     position: relative;
   }
   .swiperBar {
-    overflow: inherit;
-    overflow-x: clip;
+    padding-top: 20px;
   }
   .buttonForSwiper {
     position: absolute;

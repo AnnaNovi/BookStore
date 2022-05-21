@@ -21,13 +21,13 @@ export default defineComponent({
     height: 50vh;
     font-weight: 700;
     font-size: 36px;
-    color: #887569;
+    color: $BROWN;
     position: relative;
   }
   .error {
     font-weight: 700;
     font-size: 15em;
-    color: #887569;
+    color: $BROWN;
     opacity: 0.1;
     position: absolute;
   }

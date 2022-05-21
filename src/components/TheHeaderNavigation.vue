@@ -108,10 +108,10 @@
     transition: 0.4s;
     cursor: pointer;
     &.active {
-      color: #887569;
+      color: $BROWN;
     }
     &:hover {
-      color: #887569;
+      color: $BROWN;
       transition: 0.7s;
     }
   }

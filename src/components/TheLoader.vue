@@ -47,7 +47,7 @@
     height: 30vh;
     font-weight: 700;
     font-size: 36px;
-    color: #887569;
+    color: $BROWN;
     position: relative;
   }
   .icon {

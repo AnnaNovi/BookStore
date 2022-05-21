@@ -20,7 +20,7 @@ export default defineComponent({
     height: 50vh;
     font-weight: 700;
     font-size: 28px;
-    color: #887569;
+    color: $BROWN;
     position: relative;
     text-align: center;
   }
