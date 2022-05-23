@@ -67,12 +67,14 @@
       ...mapGetters([
         'discountBooksSwiper',
         'popularBooksSwiper',
-        'recommendsBooksSwiper'
+        'recommendsBooksSwiper',
+        'similarBooksSwiper'
       ]),
       currentBooksSwiper(){
         return (this.type === 'discount') ? this.discountBooksSwiper : 
         (this.type === 'popular') ? this.popularBooksSwiper : 
-        this.recommendsBooksSwiper;
+        (this.type === 'recommends') ? this.recommendsBooksSwiper : 
+        this.similarBooksSwiper;
       },
     },
     watch: {
@@ -85,6 +87,9 @@
       recommendsBooksSwiper(){
         this.loadContent = false;
       },
+      similarBooksSwiper(){
+        this.loadContent = false;
+      }
     },
     methods: {
       onSwiper(swiper: typeof Swiper){

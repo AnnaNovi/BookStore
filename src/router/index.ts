@@ -56,6 +56,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "post" */ '../views/BlogSingleView.vue')
   },
   {
+    path: '/books/:id',
+    name: 'book',
+    meta: {
+      subscription: false,
+    },
+    component: () => import(/* webpackChunkName: "book" */ '../views/BookView.vue')
+  },
+  {
     path: '/delivery',
     name: 'delivery',
     meta: {

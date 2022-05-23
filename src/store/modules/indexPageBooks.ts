@@ -68,7 +68,7 @@ export const indexPageBooks = ({
                 author: item.author_name[0],
                 authorId: item.author_key[0],
                 title: item.title,
-                price: item.number_of_pages_median,
+                price: Math.ceil(item.number_of_pages_median * 2.3),
                 image: item.cover_edition_key,
                 key: item.key,
                 discount: (notDiscount) ? null : (Math.floor(Math.random() * (20 - 5 + 1)) + 5)
