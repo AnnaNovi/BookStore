@@ -4,7 +4,10 @@
       <img :src="imageSrc" :alt="this.book.title">
     </div>
     <div :class="$style.author">{{ this.book.author }}</div>
-    <div :class="$style.title">{{ this.book.title }}</div>
+    <div
+      :class="$style.title"
+      @click="this.$router.push(`/books/${bookId}`)"
+    >{{ this.book.title }}</div>
     <div :class="$style.price">
       <span
         :class="{[$style.lastPrice]: !!discountPrice}"
@@ -78,6 +81,11 @@
       },
       discountPrice(): number | null{
         return (this.book?.discount) ? Math.ceil(this.book?.price * (100 - this.book?.discount)/100) : null; 
+      },
+      bookId(): string{
+        const bookIdSeparate = (this.book) ? this.book.key.split('/') : [];
+        const bookId = bookIdSeparate[bookIdSeparate.length - 1];
+        return bookId;
       }
     },
     methods: {
@@ -140,6 +148,12 @@
     line-height: 22px;
     color: #181818;
     margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      transition: 0.3s;
+      color: $BROWN;
+    }
     @media (max-width: 575px) {
       font-size: 13px;
       line-height: 16px;
