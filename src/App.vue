@@ -30,13 +30,14 @@ export default defineComponent({
   },
   methods: {
     ...mapActions([
-      'addFavoritesBookFromLocalStorage'
+      'addFavoritesBookFromLocalStorage',
+      'addCartBookFromLocalStorage',
+      'addCartBookQuantityFromLocalStorage'
     ])
   },
   mounted(){
-    if(localStorage['favoritesList']) {
-      this.addFavoritesBookFromLocalStorage();
-    }
+    (localStorage['favoritesList']) ? this.addFavoritesBookFromLocalStorage() : undefined;
+    (localStorage['cartList']) ? this.addCartBookFromLocalStorage() : undefined;
   }
 });
 </script>

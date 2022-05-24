@@ -29,6 +29,7 @@
     </button>
     <button
       :class="$style.cart"
+      @click="handleCartButton(this.book.key)"
     >
       <svg>
         <use href="../assets/sprite.svg#cart"/>
@@ -53,7 +54,8 @@
     price: number,
     image: string,
     key: string,
-    discount: number | null
+    discount: number | null,
+    quantityInCart: number
   }
 
   export default defineComponent({
@@ -75,6 +77,7 @@
     computed: {
       ...mapGetters([
         'favoritesList',
+        'cartList'
       ]),
       imageSrc(): string{
         return `https://covers.openlibrary.org/b/olid/${this.book?.image}-${this.imageSize}.jpg`
@@ -91,12 +94,17 @@
     methods: {
       ...mapActions([
         'toggleFavoritesBook',
-        'checkFavoritesBook'
+        'checkFavoritesBook',
+        'addCartBook'
       ]),
       handleLikeButton(bookKey: string){
         this.toggleFavoritesBook(bookKey);
         this.like = !this.like;
         localStorage.setItem('favoritesList', JSON.stringify([...this.favoritesList]));
+      },
+      handleCartButton(bookKey: string){
+        this.addCartBook(bookKey);
+        localStorage.setItem('cartList', JSON.stringify([...this.cartList]));
       }
     },
     mounted(){

@@ -26,7 +26,8 @@
         </svg>
       </button>
       <button
-        :class="$style.iconButton"
+        :class="[$style.iconButton, $style.cart]"
+        :data-cartSize="cartSize"
         @click="this.$router.push('/cart')"
       >
         <svg :class="$style.icon">
@@ -45,7 +46,8 @@
     name: 'TheHeaderTop',
     computed: {
       ...mapGetters([
-        'favoritesSize'
+        'favoritesSize',
+        'cartSize'
       ])
     },
   });
@@ -75,7 +77,6 @@
     background: none;
     border: none;
     &::before {
-      content: '0';
       width: 22px;
       height: 22px;
       background: #887569;
@@ -100,6 +101,11 @@
   .like {
     &::before {
       content: attr(data-favoritesSize);
+    }
+  }
+  .cart {
+    &::before {
+      content: attr(data-cartSize);
     }
   }
   .logo {
