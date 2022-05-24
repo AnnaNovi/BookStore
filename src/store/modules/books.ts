@@ -83,12 +83,14 @@ export const books = ({
         has_fulltext,
         publish_year,
         isbn,
-        subject
+        subject,
+        ebook_count_i
       `;
       await fetch(`https://openlibrary.org/search.json?q=${bookId}&fields=${fields}`)
         .then(response => response.json())
         .then(data => {
-          const lastPublisherYear = data.docs[0].publish_year.sort((a: number, b: number) => b - a)
+          const lastPublisherYear = data.docs[0].publish_year.sort((a: number, b: number) => b - a);
+          const discount = (data.ebook_count_i < 5) ? 5 : (data.ebook_count_i > 20) ? 20 : data.ebook_count_i;
           const book = {
             author: data.docs[0].author_name[0],
             authorId: data.docs[0].author_key[0],
@@ -102,7 +104,7 @@ export const books = ({
             weight: Math.ceil(data.docs[0].number_of_pages_median * 1.5),
             publisherYear: lastPublisherYear[0],
             isbn: data.docs[0].isbn[0],
-            discount: Math.floor(Math.random() * (20 - 5 + 1)) + 5,
+            discount: discount,
             subject: data.docs[0].subject[0]
           };
           commit('GET_BOOK_BY_ID', book);

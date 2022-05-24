@@ -74,7 +74,8 @@ export const favorites = ({
         number_of_pages_median,
         cover_edition_key,
         key,
-        public_scan_b
+        public_scan_b,
+        ebook_count_i
       `;
       state.favorites.forEach(async(bookIdPath: string) => {
         const bookIdSeparate = bookIdPath.split('/');
@@ -83,6 +84,7 @@ export const favorites = ({
           .then(response => response.json())
           .then(data => {
             const arrayOfBooks = data.docs.map(function(item: any){
+              const discount = (item.ebook_count_i < 5) ? 5 : (item.ebook_count_i > 20) ? 20 : item.ebook_count_i;
               return {
                   author: item.author_name[0],
                   authorId: item.author_key[0],
@@ -90,7 +92,7 @@ export const favorites = ({
                   price: Math.ceil(item.number_of_pages_median * 2.3),
                   image: item.cover_edition_key,
                   key: item.key,
-                  discount: (item.public_scan_b) ? null : (Math.floor(Math.random() * (20 - 5 + 1)) + 5)
+                  discount: (item.public_scan_b) ? null : discount
                 }
             });
             commit('GET_FAVORITES_BOOKS', arrayOfBooks);

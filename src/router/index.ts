@@ -95,9 +95,9 @@ const routes: Array<RouteRecordRaw> = [
     name: 'cart',
     meta: {
       title: 'Корзина',
-      subscription: true,
+      subscription: false,
     },
-    component: () => import(/* webpackChunkName: "cart" */ '../views/PageInProgress.vue')
+    component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue')
   },
   {
     path: '/inProgress',

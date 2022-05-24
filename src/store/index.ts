@@ -4,6 +4,7 @@ import { favorites, favoritesStateType } from './modules/favorites';
 import { discountBooks, discountBooksStateType } from './modules/discountBooks';
 import { indexPageBooks, indexPageBooksStateType } from './modules/indexPageBooks';
 import { blogPosts, postsStateType } from './modules/blogPosts';
+import { cart, cartStateType } from './modules/cart';
 
 export interface RootState {
   modules: {
@@ -11,7 +12,8 @@ export interface RootState {
     discountBooks: discountBooksStateType,
     favorites: favoritesStateType,
     indexPageBooks: indexPageBooksStateType,
-    blogPosts: postsStateType
+    blogPosts: postsStateType,
+    cart: cartStateType
   }
 }
 
@@ -21,6 +23,7 @@ export default createStore({
     discountBooks,
     favorites,
     indexPageBooks,
-    blogPosts
+    blogPosts,
+    cart
   }
 })
