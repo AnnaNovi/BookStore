@@ -49,22 +49,43 @@
   .wrapper {
     display: grid;
     grid-template-columns: 15% 60% 15%;
+    grid-template-rows: none;
     justify-content: space-between;
     align-items: center;
     background: #F5F5F5;
-    padding: 0 120px;
+    text-align: center;
+    padding-top: 19px;
+    padding-bottom: 33px;
+    @include appPadding;
     &.wrapperMarginTop {
       margin-top: 30px;
     }
+    @media (max-width: 1200px) {
+      grid-template-rows: repeat(3, auto);
+      grid-template-columns: none;
+      padding-top: 16px;
+      padding-bottom: 20px;
+      justify-content: center;
+    }
   }
   .logo {
-    margin: 19px 0 33px;
+    margin: 19px auto 33px;
     width: 155px;
     height: 84px;
+    @media (max-width: 768px) {
+      margin: 16px auto 22px;
+      width: 100px;
+      height: 54px;
+    }
   }
   .linkList {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
   .link {
     display: flex;
@@ -81,16 +102,34 @@
       color: $BROWN;
       transition: 0.7s;
     }
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+      margin: 7px 0;
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
   .phoneBlock {
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
     white-space: nowrap;
+    margin-top: 0;
     svg {
       width: 16px;
       height: 16px;
       margin-right: 13px;
+      @media (max-width: 768px) {
+        width: 9px;
+        height: 9px;
+        margin-right: 6px;
+      }
+    }
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 17px;
+      margin-top: 20px;
     }
   }
   .phoneNumber {

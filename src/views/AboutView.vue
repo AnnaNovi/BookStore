@@ -13,7 +13,7 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 
         </p>
       </div>
-      <img :class="$style.leftImage" src="../assets/images/aboutUs-1.jpg">
+      <img :class="$style.rightImage" src="../assets/images/aboutUs-1.jpg">
     </div>
     <p :class="$style.centerParagraph">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Lorem ipsum dolor sit amet, consectetur adipisicing Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam 
@@ -35,21 +35,30 @@ export default defineComponent({
 
 <style lang="scss" module>
   .title {
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 44px;
-    color: #373737;
+    @include title;
   }
   .wrapper {
-    display: flex;
-    img {
-      width: 446px;
-      height: 446px;
-      margin-left: 32px;
-      margin-bottom: 18px;
-    }
+    display: grid;
+    grid-template-columns: auto 446px;
+    grid-template-rows: none;
+    column-gap: 32px;
+    row-gap: none;
+    align-items: center;
+    justify-items: center;
     div {
       margin-top: 25px;
+      @media (max-width: 576px) {
+        margin-top: 0;
+      }
+    }
+    @media (max-width: 1200px) {
+      grid-template-rows: auto 446px;
+      grid-template-columns: none;
+      row-gap: 13px;
+      column-gap: none;
+    }
+    @media (max-width: 992px) {
+      grid-template-rows: auto 298px;
     }
   }
   .wrapper p:first-of-type::first-letter{
@@ -58,28 +67,52 @@ export default defineComponent({
     padding-right: 43px;
     float: left;
     color: black;
+    @media (max-width: 576px) {
+      font-size: 64px;
+      line-height: 58px;
+      padding-right: 18px;
+    }
   }
-  .leftImage {
-    float: right;
+  .rightImage {
+    width: 446px;
+    height: 446px;
+    object-fit: cover;
+    margin-bottom: 18px;
+    @media (max-width: 992px) {
+      width: 298px;
+      height: 298px;
+    }
   }
   .section p {
-    margin: 22px 0;
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 25px;
-    color: #525252;
+    @include paragraph;
   }
   .centerParagraph {
     text-align: center;
     font-size: 15.9px !important;
+    @media (max-width: 576px) {
+      font-size: 13.9px !important;
+    }
   }
   .imageBlock {
     display: grid;
+    justify-items: center;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: none;
     column-gap: 11px;
-    margin-bottom: 27px;
+    row-gap: none;
     img {
       width: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 992px) {
+      grid-template-columns: none;
+      grid-template-rows: repeat(2, 1fr);
+      column-gap: none;
+      row-gap: 13px;
+      img {
+        width: 60%;
+        min-width: 298px;
+      }
     }
   }
 </style>

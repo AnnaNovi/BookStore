@@ -179,7 +179,7 @@
     width: 40px;
     height: 40px;
     fill: $BROWN;
-    justify-items: end;
+    justify-items: flex-end;
   }
   .bookCartBar {
     display: grid;
@@ -198,7 +198,7 @@
   }
   .closeBlock {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     svg {
       cursor: pointer;

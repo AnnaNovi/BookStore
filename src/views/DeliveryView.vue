@@ -15,7 +15,10 @@
               v-for="(paymentMethod, index) in paymentMethods"
               :key="index"
             >
-              <FeauterBlock :feature="paymentMethod"></FeauterBlock>
+              <FeauterBlock
+                :feature="paymentMethod"
+                :class="$style.feature"
+              ></FeauterBlock>
               <p>{{ paymentMethod.description }}</p>
             </div>
           </div>
@@ -73,10 +76,7 @@ export default defineComponent({
 
 <style lang="scss" module>
   .title {
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 44px;
-    color: #373737;
+    @include title;
   }
   .item {
     margin-top: 32px;
@@ -84,24 +84,46 @@ export default defineComponent({
     font-size: 16px;
     line-height: 20px;
     color: #373737;
+    @media (max-width: 576px) {
+      font-size: 14px;
+      line-height: 140%;
+    }
   }
   .itemTitle {
     font-weight: 500;
-    font-size: 24px;
+    font-size: 23px;
     line-height: 29px;
     color: #373737;
     margin-bottom: 13px;
+    @media (max-width: 576px) {
+      font-size: 14px;
+      line-height: 17px;
+      margin-bottom: 17px;
+    }
   }
   .paymentMethod {
     padding: 45px 45px 0;
+    @media (max-width: 992px) {
+      padding: 0;
+    }
   }
   .paymentMethodItem {
     display: grid;
     grid-template-columns: 305px auto;
     column-gap: 40px;
     margin-bottom: 47px;
+    @media (max-width: 992px) {
+      display: block;
+      margin-bottom: 0;
+    }
   }
   .paymentMethodItem:last-child {
     margin-bottom: 0;
+  }
+  .feature {
+    margin: 0;
+    @media (max-width: 992px) {
+      margin: 17px 0 19px;
+    }
   }
 </style>

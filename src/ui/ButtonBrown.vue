@@ -40,5 +40,9 @@ export default defineComponent({
       transition: 1s;
       color: $BROWN;
     }
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
 </style>

@@ -1,40 +1,37 @@
 <template>
   <div :class="$style.wrapper">
-    <div :class="$style.phoneBlock">
+    <div :class="$style.hamburger">
       <svg :class="$style.icon">
-        <use href="../assets/sprite.svg#phone"/>
+        <use href="../assets/sprite.svg#hamburger"/>
       </svg>
-      <a href="tel:+79991400000" :class="$style.phoneNumber">+7 999 140 00 00</a>
     </div>
+    <svg :class="$style.icon">
+      <use href="../assets/sprite.svg#loupe"/>
+    </svg>
     <img
       :class="$style.logo"
       @click="this.$router.push('/')"
       src="../assets/images/logo.png"
       alt="Логотип компании"
     >
-    <div :class="$style.iconsBlock">
+    <button
+      :class="[$style.iconButton, $style.like]"
+      :data-favoritesSize="favoritesSize"
+      @click="this.$router.push('/favorites')"
+    >
       <svg :class="$style.icon">
-        <use href="../assets/sprite.svg#loupe"/>
+        <use href="../assets/sprite.svg#like"/>
       </svg>
-      <button
-        :class="[$style.iconButton, $style.like]"
-        :data-favoritesSize="favoritesSize"
-        @click="this.$router.push('/favorites')"
-      >
-        <svg :class="$style.icon">
-          <use href="../assets/sprite.svg#like"/>
-        </svg>
-      </button>
-      <button
-        :class="[$style.iconButton, $style.cart]"
-        :data-cartSize="cartSize"
-        @click="this.$router.push('/cart')"
-      >
-        <svg :class="$style.icon">
-          <use href="../assets/sprite.svg#cart"/>
-        </svg>
-      </button>
-    </div>
+    </button>
+    <button
+      :class="[$style.iconButton, $style.cart]"
+      :data-cartSize="cartSize"
+      @click="this.$router.push('/cart')"
+    >
+      <svg :class="$style.icon">
+        <use href="../assets/sprite.svg#cart"/>
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -43,7 +40,7 @@
   import { mapGetters } from 'vuex';
 
   export default defineComponent({
-    name: 'TheHeaderTop',
+    name: 'TheHeaderTopShort',
     computed: {
       ...mapGetters([
         'favoritesSize',
@@ -56,20 +53,21 @@
 <style lang='scss' module>
   .wrapper {
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(5, auto);
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    column-gap: 26px;
   }
   .icon {
-    width: 30px;
-    height: 30px;
+    width: 21px;
+    height: 21px;
     fill: #7D6C65;
     transition: 0.3s;
     cursor: pointer;
     position: relative;
     &:hover {
       transition: 0.5s;
-      fill: #787878;
+      transform: scale(120%);
     }
   }
   .iconButton {
@@ -92,6 +90,10 @@
       bottom: 20px;
       left: 17px;
       z-index: 5;
+      @media (max-width: 575px) {
+        bottom: 15px;
+        left: 12px;
+      }
     }
   }
   .like {
@@ -105,34 +107,16 @@
     }
   }
   .logo {
-    margin: 12px 0 28px;
-    width: 155px;
-    height: 84px;
+    margin: 12px 10px 18px;
+    width: 96px;
+    height: 52px;
     cursor: pointer;
-    @media (max-width: 768px) {
-      margin: 12px 0 18px;
-      width: 96px;
-      height: 52px;
-    }
   }
-  .iconsBlock {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 29px;
-  }
-  .phoneBlock {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    white-space: nowrap;
+  .hamburger {
+    fill: $BROWN;
     svg {
-      width: 16px;
-      height: 16px;
-      margin-right: 13px;
+      width: 30px;
+      height: 30px;
     }
-  }
-  .phoneNumber {
-    color: #606060;
-    cursor: pointer;
   }
 </style>

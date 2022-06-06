@@ -1,9 +1,9 @@
 <template>
   <div class="appWrapper">
     <div>
-      <TheHeader style="padding: 0 120px;"/>
-      <PagesHistory style="padding: 0 120px;"/>
-      <router-view style="padding: 0 120px;"></router-view>
+      <TheHeader class="paddingWrapper"/>
+      <PagesHistory class="paddingWrapper"/>
+      <router-view class="paddingWrapper"></router-view>
     </div>
     <div>
       <TheSubscription />
@@ -62,6 +62,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.paddingWrapper {
+  @include appPadding;
 }
 .swiper {
   width: 100%;
