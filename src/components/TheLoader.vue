@@ -47,8 +47,17 @@
     height: 30vh;
     font-weight: 700;
     font-size: 36px;
+    text-align: center;
     color: $BROWN;
     position: relative;
+    @media (max-width: 992px) {
+      font-weight: 600;
+      font-size: 28px;
+    }
+    @media (max-width: 450px) {
+      font-weight: 400;
+      font-size: 21px;
+    }
   }
   .icon {
     fill: #7D6C65;

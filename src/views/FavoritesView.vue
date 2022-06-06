@@ -52,16 +52,9 @@ export default defineComponent({
 
 <style lang="scss" module>
   .title {
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 44px;
-    color: #373737;
+    @include title;
   }
   .bookCardsBlock {
-    margin: 53px 0 38px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 28px;
-    row-gap: 42px;
+    @include booksBlock;
   }
 </style>

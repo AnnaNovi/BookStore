@@ -13,14 +13,18 @@ interface postsType {
 export interface postsStateType {
   posts: postsType[],
   imageUrl: string[],
-  activePost: postsType[]
+  activePost: postsType[],
+  postsPage: number,
+  postsLimit: number,
 }
 
 export const blogPosts = ({
   state: () => ({
     posts: [],
     imageUrl: [],
-    activePost: []
+    activePost: [],
+    postsPage: 1,
+    postsLimit: 10,
   }),
   getters: {
     postsList(state: postsStateType){
@@ -32,20 +36,24 @@ export const blogPosts = ({
   },
   mutations: {
     GET_POSTS(state: postsStateType, data: postsType[]) {
-      return state.posts = [...data];
+      return state.posts = [...state.posts, ...data];
     },
     GET_IMAGE_URL(state: postsStateType, data: string) {
       return state.imageUrl.push(data);
     },
     GET_POST_BY_ID(state: postsStateType, data: postsType){
       return state.activePost.push(data);
+    },
+    INCREASE_PAGE(state: postsStateType){
+      return state.postsPage += 1;
     }
   },
   actions: {
     async getPosts({ commit, dispatch, state }: ActionContext<postsStateType, RootState>) {
-      const limit = 10;
+      const limit = state.postsLimit;
+      const page = state.postsPage;
       await dispatch('getImageUrl', limit);
-      await fetch(`https://jsonplaceholder.typicode.com/posts/?_limit=${limit}`)
+      await fetch(`https://jsonplaceholder.typicode.com/posts/?_limit=${limit}&_page=${page}`)
         .then(response => response.json())
         .then(data => {
           const postsList = data.map((post: postsType, index: number) => {
@@ -101,6 +109,9 @@ export const blogPosts = ({
             commit('GET_POST_BY_ID', singlePost);
           })
       }
+    },
+    getNextPage({ commit }: ActionContext<postsStateType, RootState>) {
+      commit('INCREASE_PAGE');
     }
   }
 });

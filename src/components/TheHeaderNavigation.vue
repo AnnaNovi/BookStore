@@ -1,21 +1,24 @@
 <template>
   <div :class="$style.wrapper">
-    <div :class="$style.navigation">
-      <div :class="$style.linkList">
-        <button :class="[$style.link, $style.active]">
-          <span :class="$style.burger"></span>
-          Подразделы
-        </button>
-        <button
-          v-for="link in navigationLinks"
-          :key="link.name"
-          :class="{
-            [$style.link]: true,
-            [$style.active]: checkActiveLink(link.name)
-          }"
-          @click="this.$router.push(link.path)"
-        > {{ link.meta.title }}</button>
-      </div>
+    <div :class="$style.hamburger">
+      <svg :class="$style.icon">
+        <use href="../assets/sprite.svg#hamburger"/>
+      </svg>
+    </div>
+    <div :class="$style.linkList">
+      <button :class="[$style.link, $style.active]">
+        <span :class="$style.burger"></span>
+        Подразделы
+      </button>
+      <button
+        v-for="link in navigationLinks"
+        :key="link.name"
+        :class="{
+          [$style.link]: true,
+          [$style.active]: checkActiveLink(link.name)
+        }"
+        @click="this.$router.push(link.path)"
+      > {{ link.meta.title }}</button>
     </div>
     <div :class="$style.socials">
       <svg :class="$style.icon">
@@ -24,14 +27,6 @@
       <svg :class="$style.icon">
         <use href="../assets/sprite.svg#instagram"/>
       </svg>
-      <select :class="$style.changeLanguage">
-        <option selected>
-          RU
-          <svg>
-            <use href="../assets/sprite.svg#arrow-down"/>
-          </svg>
-        </option>
-      </select>
     </div>
   </div>
 </template>
@@ -62,13 +57,41 @@
 <style lang='scss' module>
   .wrapper {
     display: grid;
-    grid-template-columns: 80% 10%;
+    grid-template-columns: 85% 10%;
     justify-content: space-between;
     align-items: center;
+    margin: 25px 0;
+    @media (max-width: 576px) {
+      display: none;
+    }
   }
   .linkList {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    column-gap: 36px;
+    row-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    @media (max-width: 1440px) {
+      column-gap: 18px;
+    }
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .hamburger {
+    fill: $BROWN;
+    display: none;
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+    @media (max-width: 768px) {
+      display: block;
+    }
   }
   .burger {
     margin-right: 18px;
@@ -102,10 +125,10 @@
     font-size: 18px;
     line-height: 22px;
     color: #4F4F4F;
-    margin: 25px 10px;
     background: none;
     border: none;
     transition: 0.4s;
+    white-space: nowrap;
     cursor: pointer;
     &.active {
       color: $BROWN;
@@ -129,17 +152,5 @@
       transition: 0.5s;
       fill: #787878;
     }
-  }
-  .changeLanguage {
-    display: flex;
-    justify-content: space-between;
-    width: 50px;
-    background: none;
-    border: none;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    color: #787878;
-    cursor: pointer;
   }
 </style>

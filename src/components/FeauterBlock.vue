@@ -35,6 +35,8 @@
     @media (max-width: 575px) {
       font-size: 14px;
       line-height: 17px;
+      column-gap: 11px;
+      grid-template-columns: 47px auto;
     }
   }
   .featureId {

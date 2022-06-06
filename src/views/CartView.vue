@@ -22,6 +22,7 @@
         <p><span>Итого: </span>{{ totalPrice }}</p>
         <ButtonBrown
           :paddingLR="70"
+          @click="$router.push('/order')"
         >Перейти к оформлению</ButtonBrown>
       </div>
     </div>

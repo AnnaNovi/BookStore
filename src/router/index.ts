@@ -100,6 +100,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue')
   },
   {
+    path: '/order',
+    name: 'order',
+    meta: {
+      subscription: false,
+    },
+    component: () => import(/* webpackChunkName: "cart" */ '../views/PageInProgress.vue')
+  },
+  {
     path: '/inProgress',
     alias: ['/catalog'],
     name: 'inProgress',

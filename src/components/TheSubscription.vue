@@ -23,13 +23,17 @@
         v-model.lazy="subscription.email"
         v-if="eventPage"
       >
-      <button type="submit" :class="$style.submitButton">Оставить заявку</button>
+      <ButtonBrown
+        :class="$style.button"
+        :paddingLR="28"
+      >Оставить заявку</ButtonBrown>
     </form>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import ButtonBrown from '../ui/ButtonBrown.vue';
 
   export default defineComponent({
     name: 'TheSubscription',
@@ -40,6 +44,9 @@
           phone: ''
         },
       }
+    },
+    components: {
+      ButtonBrown
     },
     computed: {
       activeLink(){
@@ -71,12 +78,33 @@
     background: #E9E5E0;
     text-align: center;
     padding: 48px 178px;
+    margin-top: 30px;
+    @media (max-width: 1200px) {
+      padding: 48px 138px;
+    }
+    @media (max-width: 768px) {
+      padding: 48px 108px;
+      margin-top: 20px;
+    }
+    @media (max-width: 576px) {
+      padding: 48px 78px;
+    }
+    @media (max-width: 450px) {
+      padding: 25px 32px 30px;
+    }
+    @media (max-width: 375px) {
+      padding: 25px 15px 30px;
+    }
   }
   .title {
     font-weight: 300;
     font-size: 36px;
     line-height: 44px;
     color: #373737;
+    @media (max-width: 768px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
   }
   .subtitle {
     font-weight: 300;
@@ -84,11 +112,17 @@
     line-height: 22px;
     color: #000000;
     margin: 12px 0 38px 0;
+    @media (max-width: 768px) {
+      font-size: 12px;
+      line-height: 15px;
+      margin: 6px 0 21px 0;
+    }
   }
   .form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
+    row-gap: 20px;
     input {
       background: #FFFFFF;
       border-radius: 8px;
@@ -99,19 +133,28 @@
         font-size: 18px;
         line-height: 22px;
         color: #9C9C9C;
+        @media (max-width: 768px) {
+          font-size: 14px;
+          line-height: 17px;
+        }
       }
     }
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+    }
   }
-  .submitButton {
-    font-family: 'Montserrat';
-    border: none;
-    background: #887569;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    text-transform: uppercase;
+  .button {
+    @media (max-width: 1200px) {
+      grid-column-start: 1;
+      grid-column-end: span 2;
+    }
+    /* @media (max-width: 768px) {
+      grid-column-start: none;
+      grid-column-end: none;
+    } */
   }
 </style>
