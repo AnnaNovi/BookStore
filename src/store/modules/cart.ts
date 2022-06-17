@@ -36,6 +36,13 @@ export const cart = ({
     cartBooksList(state: cartStateType){
       return state.cartBooks;
     },
+    totalCartPrice(state: cartStateType){
+      const totalPrice = state.cartBooks.reduce((previousValue: number, currentValue: booksType) => {
+        const priceQuantity = currentValue.price * currentValue.quantityInCart;
+        return previousValue += (currentValue.discount) ? Math.ceil(priceQuantity * (100 - currentValue.discount)/100) : priceQuantity;
+      }, 0);
+      return totalPrice.toLocaleString('de-DE');
+    }
   },
   mutations: {
     ADD_CART_BOOK(state: cartStateType, bookKey: string) {

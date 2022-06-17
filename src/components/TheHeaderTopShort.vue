@@ -90,7 +90,7 @@
       bottom: 20px;
       left: 17px;
       z-index: 5;
-      @media (max-width: 575px) {
+      @media (max-width: 576px) {
         bottom: 15px;
         left: 12px;
       }

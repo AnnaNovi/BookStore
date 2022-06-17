@@ -4,6 +4,10 @@
     <template
       v-if="!loadContent"
     >
+      <div :class="$style.hideTitle">
+        <div :class="$style.author">{{ activeBook.author }}</div>
+        <div :class="$style.title">{{ activeBook.title }}</div>
+      </div>
       <div :class="$style.image">
         <img :src="imageSrc" alt="" :class="$style.image">
         <button
@@ -48,7 +52,7 @@
               
             >{{ discountPrice }}</span>
           </div>
-          <button :class="$style.button">В корзину</button>
+          <ButtonBrown :paddingLR="25" style="padding-top:13px;padding-bottom:13px;">В корзину</ButtonBrown>
         </div>
         <hr :class="$style.line">
         <div :class="$style.featureList">
@@ -82,6 +86,7 @@ import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import TheLoader from '../components/TheLoader.vue';
 import BooksSwiper from '../components/BooksSwiper.vue';
+import ButtonBrown from '../ui/ButtonBrown.vue'
 
 export default defineComponent({
   name: 'BlogSingleView',
@@ -93,7 +98,8 @@ export default defineComponent({
   },
   components: {
     TheLoader,
-    BooksSwiper
+    BooksSwiper,
+    ButtonBrown 
   },
   computed: {
     ...mapGetters([
@@ -153,25 +159,88 @@ export default defineComponent({
     display: grid;
     row-gap: 33px;
     column-gap: 66px;
-    grid-template-columns: 426px calc(100% - 426px - 33px);
+    grid-template-areas: 'A B';
+    grid-template-columns: 426px calc(100% - 426px - 66px);
+    @media (max-width: 1200px) {
+      column-gap: 40px;
+    }
+    @media (max-width: 992px) {
+      grid-template-areas:  'C'
+                            'A'
+                            'B';
+      grid-template-columns: 100%;
+      column-gap: 0px;
+      row-gap: 20px;
+    }
+    @media (max-width: 576px) {
+      row-gap: 12px;
+    }
   }
   .image {
+    grid-area: A;
     position: relative;
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    max-height: 548px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    @media (max-width: 992px) {
+      max-height: 420px;
+    }
+    @media (max-width: 576px) {
+      max-height: 311px;
+    }
+  }
+  .description {
+    grid-area: B;
+  }
+  .hideTitle {
+    grid-area: C;
+    display: none;
+    @media (max-width: 992px) {
+      display: block;
+    }
+    .author {
+      display: block;
+      @media (max-width: 576px) {
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 15px;
+      }
+    }
+    .title {
+      display: block;
+      @media (max-width: 576px) {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+      }
+    }
   }
   .author {
+    display: block;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     color: #A3A3A3;
+    @media (max-width: 992px) {
+      display: none;
+    }
   }
   .title {
+    display: block;
     font-weight: 500;
     font-size: 24px;
     line-height: 29px;
     color: #373737;
     margin: 8px 0 22px 0;
+    @media (max-width: 992px) {
+      display: none;
+    }
   }
   .available {
     font-weight: 400;
@@ -183,6 +252,10 @@ export default defineComponent({
     margin-bottom: 20px;
     svg {
       margin-right: 10px;
+    }
+    @media (max-width: 576px) {
+      font-size: 14px;
+      line-height: 17px;
     }
   }
   .line {
@@ -199,9 +272,9 @@ export default defineComponent({
     font-size: 20px;
     line-height: 24px;
     color: #343434;
-    @media (max-width: 575px) {
-      font-size: 14px;
-      line-height: 17px;
+    @media (max-width: 576px) {
+      font-size: 18px;
+      line-height: 22px;
     }
     span:after {
       content: '\20BD';
@@ -216,8 +289,8 @@ export default defineComponent({
   }
   .like {
     position: absolute;
-    top: -25px;
-    right: 10px;
+    top: -30px;
+    right: calc(50% - 210px);
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -228,11 +301,14 @@ export default defineComponent({
     align-items: center;
     cursor: pointer;
     transition: 0.3s;
-    @media (max-width: 575px) {
-      width: 29px;
-      height: 29px;
-      top: 7px;
-      right: 7px;
+    @media (max-width: 992px) {
+      right: calc(50% - 170px);
+    }
+    @media (max-width: 576px) {
+      width: 46px;
+      height: 46px;
+      top: -20px;
+      right: calc(50% - 130px);
     }
     svg{
       width: 50%;
@@ -251,24 +327,6 @@ export default defineComponent({
       fill: red;
     }
   }
-  .button {
-    background: $BROWN;
-    border: 1px solid $BROWN;
-    border-radius: 8px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    text-transform: uppercase;
-    padding: 17px 39px;
-    transition: 0.8s;
-    cursor: pointer;
-    &:hover {
-      background: none;
-      transition: 1s;
-      color: $BROWN;
-    }
-  }
   .firstSentence {
     font-weight: 300;
     font-size: 18px;
@@ -276,6 +334,10 @@ export default defineComponent({
     color: #000000;
     margin-top: 20px;
     opacity: 0.7;
+    @media (max-width: 576px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
   .featureItem {
     font-weight: 400;
@@ -296,6 +358,9 @@ export default defineComponent({
   .swiper {
     grid-column-start: 1;
     grid-column-end: 3;
+    @media (max-width: 992px) {
+      grid-column-end: 1;
+    }
   }
   .innerWrapper {
     margin: 12px 0;
@@ -321,7 +386,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       width: 32px;
       height: 32px;
       top: -13px;

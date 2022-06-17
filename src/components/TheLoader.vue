@@ -44,17 +44,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    height: 400px;
     font-weight: 700;
     font-size: 36px;
     text-align: center;
     color: $BROWN;
     position: relative;
     @media (max-width: 992px) {
+      height: 300px;
       font-weight: 600;
       font-size: 28px;
     }
     @media (max-width: 450px) {
+      height: 200px;
       font-weight: 400;
       font-size: 21px;
     }
@@ -62,9 +64,17 @@
   .icon {
     fill: #7D6C65;
     position: absolute;
-    width: 30vh;
-    height: 30vh;
+    width: 400px;
+    height: 400px;
     opacity: 0.2;
     animation: rotation 15s infinite linear;
+    @media (max-width: 992px) {
+      width: 300px;
+      height: 300px;
+    }
+    @media (max-width: 450px) {
+      width: 200px;
+      height: 200px;
+    }
   }
 </style>

@@ -32,7 +32,7 @@
     font-size: 18px;
     line-height: 22px;
     color: #373737;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       font-size: 14px;
       line-height: 17px;
       column-gap: 11px;
@@ -51,7 +51,7 @@
     align-items: center;
     position: relative;
     z-index: 5;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       font-size: 20px;
       line-height: 24px;
       width: 44px;
@@ -67,7 +67,7 @@
       left: 6px;
       border-radius: 50%;
       z-index: -1;
-      @media (max-width: 575px) {
+      @media (max-width: 576px) {
         bottom: 5px;
         left: 5px;
         width: 43px;
@@ -84,7 +84,7 @@
       left: 0px;
       border-radius: 50%;
       z-index: 2;
-      @media (max-width: 575px) {
+      @media (max-width: 576px) {
         width: 44px;
         height: 44px;
       }

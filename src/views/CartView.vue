@@ -4,11 +4,11 @@
     <TheLoader v-if="loadContent && !emptyCart"/>
     <div v-if="!loadContent && !emptyCart">
       <div :class="$style.headRow">
-        <p style="text-align:center;">фото</p>
-        <p>название</p>
-        <p style="text-align:center;">количество</p>
-        <p style="text-align:center;">цена</p>
-        <p></p>
+        <p>фото</p>
+        <p style="text-align: start;">название</p>
+        <p>количество<span :class="$style.priceWithQuantity">/цена</span></p>
+        <p :class="$style.price">цена</p>
+        <p></p> 
       </div>
       <hr :class="$style.line">
       <template
@@ -19,7 +19,7 @@
         <hr :class="$style.line">
       </template>
       <div :class="$style.totalPriceBlock">
-        <p><span>Итого: </span>{{ totalPrice }}</p>
+        <p><span>Итого: </span>{{ this.totalCartPrice }}</p>
         <ButtonBrown
           :paddingLR="70"
           @click="$router.push('/order')"
@@ -54,7 +54,7 @@ interface booksType {
 }
 
 export default defineComponent({
-  name: 'FavoritesView',
+  name: 'CartView',
   data(){
     return {
       loadContent: true
@@ -68,15 +68,9 @@ export default defineComponent({
   computed: {
     ...mapGetters([
       'cartBooksList',
-      'cartSize'
+      'cartSize',
+      'totalCartPrice'
     ]),
-    totalPrice(){
-      let totalPrice = 0;
-      this.cartBooksList.forEach((book:booksType) => {
-        totalPrice += (book.discount) ? Math.ceil(book.price * book.quantityInCart * (100 - book.discount)/100) : book.price * book.quantityInCart;
-      });
-      return totalPrice.toLocaleString('de-DE');
-    },
     emptyCart(){
       return !this.cartSize;
     }
@@ -103,10 +97,7 @@ export default defineComponent({
 
 <style lang="scss" module>
   .title {
-    font-weight: 300;
-    font-size: 36px;
-    line-height: 44px;
-    color: #373737;
+    @include title;
   }
   .line {
     width: 100%;
@@ -120,17 +111,38 @@ export default defineComponent({
     color: #373737;
     text-transform: lowercase;
     display: grid;
-    grid-template-columns: 15% 40% 25% 10% 10%;
+    align-items: center;
+    grid-template-columns: 15% 40% 15% 25% 5%;
+    column-gap: 20px;
+    width: calc(100% - 20px * 4);
     padding: 18px 15px;
     margin-top: 14px;
+    p {
+      text-align: center;
+    }
+    @media (max-width: 1200px) {
+      grid-template-columns: 15% 50% 25% 10%;
+      column-gap: 18px;
+      width: calc(100% - 18px * 4);
+    }
+    @media (max-width: 768px) {
+      display: none;
+      column-gap: 15px;
+      width: calc(100% - 15px * 4);
+    }
+    @media (max-width: 576px) {
+      column-gap: 12px;
+      width: calc(100% - 12px * 4);
+    }
   }
   .totalPriceBlock {
     margin-top: 26px;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-areas: 'A B';
     justify-content: end;
     align-items: center;
     column-gap: 32px;
+    row-gap: 10px;
     font-weight: 500;
     font-size: 24px;
     line-height: 30px;
@@ -143,6 +155,17 @@ export default defineComponent({
     p:after {
       content: '\20BD';
       margin-left: 3px;
+    }
+    p {
+      grid-area: A;
+      text-align: end;
+    }
+    button {
+      grid-area: B;
+    }
+    @media (max-width: 768px) {
+      grid-template-areas: 'A'
+                            'B';
     }
   }
   .emptyCart {
@@ -157,5 +180,17 @@ export default defineComponent({
     text-align: center;
     text-transform: uppercase;
     opacity: 0.6;
+  }
+  .price {
+    display: block;
+    @media (max-width: 1200px) {
+      display: none;
+    }
+  }
+  .priceWithQuantity {
+    display: none;
+    @media (max-width: 1200px) {
+      display: block;
+    }
   }
 </style>

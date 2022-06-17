@@ -48,5 +48,13 @@
     grid-template-columns: repeat(4, 1fr);
     justify-content: space-between;
     column-gap: 20px;
+    row-gap: 0px;
+    @media (max-width: 1200px) {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 14px;
+    }
+    @media (max-width: 450px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 </style>

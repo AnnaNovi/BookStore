@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.bookCartBar">
-    <div style="text-align:center">
+    <div style="text-align:center" :class="$style.imageBlock">
       <img :src="imageSrc" alt="" :class="$style.image">
     </div>
     <div :class="$style.titleBlock">
@@ -115,6 +115,7 @@
 
 <style lang='scss' module>
   .price {
+    grid-area: D;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,9 +123,9 @@
     font-size: 24px;
     line-height: 29px;
     color: #343434;
-    @media (max-width: 575px) {
-      font-size: 14px;
-      line-height: 17px;
+    @media (max-width: 768px) {
+      font-size: 18px;
+      line-height: 22px;
     }
     span:after {
       content: '\20BD';
@@ -132,6 +133,12 @@
     }
     span:first-child {
       margin-right: 15px;
+      @media (max-width: 576px) {
+        margin-right: 8px;
+      }
+    }
+    span:last-child {
+      margin-right: 0px;
     }
   }
   .lastPrice {
@@ -150,6 +157,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    @media (max-width: 768px) {
+      width: 26px;
+      height: 26px;
+      font-size: 20px;
+    }
   }
   .quantity {
     font-weight: 400;
@@ -158,18 +170,34 @@
     text-align: center;
     color: #353535;
     width: 38px;
+    @media (max-width: 768px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+    @media (max-width: 768px) {
+      width: 30px;
+    }
   }
   .title {
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
     color: #373737;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
   }
   .author {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
     color: #A3A3A3;
+    @media (max-width: 768px) {
+      font-size: 12px;
+      line-height: 15px;
+    }
   }
   .image {
     height: 75px;
@@ -180,23 +208,58 @@
     height: 40px;
     fill: $BROWN;
     justify-items: flex-end;
+    @media (max-width: 768px) {
+      width: 30px;
+      height: 30px;
+    }
   }
   .bookCartBar {
     display: grid;
-    grid-template-columns: 15% 40% 25% 10% 10%;
+    grid-template-areas: 'A B C D E';
+    grid-template-columns: 15% 40% 15% 25% 5%;
+    column-gap: 20px;
+    width: calc(100% - 20px * 4);
     padding: 11px 15px;
+    @media (max-width: 1200px) {
+      grid-template-areas: 'A B C E'
+                            'A B D E';
+      grid-template-columns: 15% 50% 25% 10%;
+      column-gap: 18px;
+      width: calc(100% - 18px * 3);
+    }
+    @media (max-width: 768px) {
+      padding: 7px 6px;
+      column-gap: 15px;
+      width: calc(100% - 15px * 3);
+    }
+    @media (max-width: 576px) {
+      grid-template-areas: 'A B B E'
+                            'A C D E';
+      grid-template-columns: 20% 35% 35% 10%;
+      column-gap: 12px;
+      width: calc(100% - 12px * 3);
+    }
+  }
+  .imageBlock {
+    grid-area: A;
   }
   .titleBlock {
+    grid-area: B;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
   }
   .quantityBlock {
+    grid-area: C;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 576px) {
+      justify-content: start;
+    }
   }
   .closeBlock {
+    grid-area: E;
     display: flex;
     justify-content: flex-end;
     align-items: center;

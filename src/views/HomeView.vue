@@ -1,7 +1,7 @@
 <template>
   <div>
     <GoToCatalog />
-    <FeaturesBar style="margin: 40px"/>
+    <FeaturesBar :class="$style.featureBar"/>
     <AboutCompanyShort />
     <BooksSwiper title="Популярные товары" type="popular"/>
     <BooksSwiper title="Скидки" type="discount"/>
@@ -38,3 +38,12 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss" module>
+  .featureBar {
+    margin: 40px;
+    @media (max-width: 768px) {
+      margin: 20px;
+    }
+  }
+</style>
