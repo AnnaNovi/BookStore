@@ -4,8 +4,8 @@
     <div :class="$style.swiperBlock">
       <TheLoader v-if="loadContent"/>
       <Swiper
-        :slides-per-view="4"
         :loop="true"
+        :breakpoints="this.breakpoints"
         :class="$style.swiperBar"
         @swiper="onSwiper"
       >
@@ -46,7 +46,18 @@
     data(){
       return {
         swiper: {} as typeof Swiper,
-        loadContent: true
+        loadContent: true,
+        breakpoints: {
+          1440: {
+            slidesPerView: 4
+          },
+          576: {
+            slidesPerView: 3
+          },
+          0: {
+            slidesPerView: 2
+          }
+        }
       }
     },
     components: {
@@ -105,6 +116,12 @@
 <style lang='scss' module>
   .section {
     margin: 62px 0;
+    @media (max-width: 992px) {
+      margin: 38px 0;
+    }
+    @media (max-width: 576px) {
+      margin: 24px 0;
+    }
   }
   .title {
     font-weight: 300;
@@ -113,6 +130,17 @@
     color: #373737;
     text-align: center;
     margin-bottom: 37px;
+    @media (max-width: 992px) {
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 34px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 576px) {
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 13px;
+    }
   }
   .swiperBlock {
     position: relative;

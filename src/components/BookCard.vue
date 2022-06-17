@@ -120,18 +120,34 @@
   .bookCard {
     background: #faf8f6;
     border-radius: 5px;
-    padding: 31px 30px 13px 30px;
+    padding: 31px 30px 13px;
     position: relative;
+    width: 100%;
     max-width: 279px;
-    @media (max-width: 575px) {
+
+    @media (max-width: 1200px) {
+      max-width: 209px;
+    }
+    @media (max-width: 768px) {
+      max-width: 166px;
+    }
+    @media (max-width: 576px) {
       padding: 5px 19px 8px 19px;
     }
   }
   .image {
-    margin-bottom: 10px;
+    margin: 0 auto 10px;
     width: 219px;
     height: 285px;
-    @media (max-width: 575px) {
+    @media (max-width: 1200px) {
+      width: 149px;
+      height: 215px;
+    }
+    @media (max-width: 768px) {
+      width: 106px;
+      height: 141px;
+    }
+    @media (max-width: 576px) {
       margin-bottom: 6px;
     }
     img {
@@ -145,7 +161,7 @@
     font-size: 14px;
     line-height: 17px;
     color: #606060;
-    @media (max-width: 575px) {
+    @media (max-width: 768px) {
       font-size: 10px;
       line-height: 12px;
     }
@@ -162,7 +178,7 @@
       transition: 0.3s;
       color: $BROWN;
     }
-    @media (max-width: 575px) {
+    @media (max-width: 768px) {
       font-size: 13px;
       line-height: 16px;
     }
@@ -172,7 +188,7 @@
     font-size: 20px;
     line-height: 24px;
     color: #343434;
-    @media (max-width: 575px) {
+    @media (max-width: 768px) {
       font-size: 14px;
       line-height: 17px;
     }
@@ -198,7 +214,7 @@
     align-items: center;
     cursor: pointer;
     transition: 0.3s;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       width: 29px;
       height: 29px;
       top: 7px;
@@ -233,7 +249,7 @@
     justify-content: center;
     align-items: center;
     background: none;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       width: 17px;
       height: 17px;
       bottom: 8px;
@@ -260,7 +276,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    @media (max-width: 575px) {
+    @media (max-width: 576px) {
       width: 32px;
       height: 32px;
       top: -13px;

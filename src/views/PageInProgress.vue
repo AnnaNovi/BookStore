@@ -23,5 +23,11 @@ export default defineComponent({
     color: $BROWN;
     position: relative;
     text-align: center;
+    @media (max-width: 992px) {
+      font-size: 22px;
+    }
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
   }
 </style>

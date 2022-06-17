@@ -18,17 +18,30 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     height: 50vh;
     font-weight: 700;
     font-size: 36px;
     color: $BROWN;
     position: relative;
+    @media (max-width: 1200px) {
+      font-size: 28px;
+    }
+    @media (max-width: 992px) {
+      font-size: 28px;
+    }
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
   .error {
     font-weight: 700;
-    font-size: 15em;
+    font-size: 12em;
     color: $BROWN;
     opacity: 0.1;
     position: absolute;
+    @media (max-width: 576px) {
+      font-size: 10em;
+    }
   }
 </style>

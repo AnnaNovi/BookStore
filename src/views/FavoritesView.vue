@@ -1,13 +1,19 @@
 <template>
   <section>
     <h1 :class="$style.title">Избранное</h1>
-    <TheLoader v-if="loadContent"/>
+    <TheLoader v-if="loadContent && !emptyFavorite"/>
     <div :class="$style.bookCardsBlock">
       <BookCard
         v-for="(book, index) in favoriteBooksList"
         :key="index"
         :book="book"
       />
+    </div>
+    <div
+      v-if="emptyFavorite"
+      :class="$style.emptyFavorite"
+    >
+      <p>В избранном пока ничего нет</p>
     </div>
   </section>
 </template>
@@ -32,7 +38,11 @@ export default defineComponent({
   computed: {
     ...mapGetters([
       'favoriteBooksList',
-    ])
+      'favoritesSize'
+    ]),
+    emptyFavorite(){
+      return !this.favoritesSize;
+    }
   },
   watch: {
     favoriteBooksList(){
@@ -56,5 +66,18 @@ export default defineComponent({
   }
   .bookCardsBlock {
     @include booksBlock;
+  }
+  .emptyFavorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    font-weight: 700;
+    font-size: 36px;
+    color: $BROWN;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0.6;
   }
 </style>

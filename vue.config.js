@@ -7,6 +7,6 @@ module.exports = defineConfig({
         additionalData: `@import '@/assets/_variables.scss';`,
       }
     }
-  }
+  },
   /* publicPath: './dist/', */
 })
