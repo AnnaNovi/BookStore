@@ -73,4 +73,11 @@ body {
 .swiper-wrapper {
   align-items: stretch;
 }
+.swiper-pagination {
+  position: absolute;
+  text-align: center;
+  transition: .3s opacity;
+  transform: translate3d(0,0,0);
+  z-index: 10;
+}
 </style>

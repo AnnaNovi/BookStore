@@ -18,7 +18,12 @@
     <button
       :class="$style.button"
       @click="this.$router.push('/catalog')"
-    >Перейти в каталог</button>
+    >
+      Перейти в каталог
+      <svg :class="$style.icon">
+        <use href="../assets/sprite.svg#arrow-right"/>
+      </svg>
+    </button>
     <button
       :class="[$style.buttonForSwiper, $style.buttonForSwiperPrev]"
       @click="changeSlide('prev')"
@@ -105,6 +110,8 @@
     }
   }
   .button {
+    display: flex;
+    align-items: center;
     text-transform: uppercase;
     font-weight: 400;
     font-size: 16px;
@@ -127,9 +134,15 @@
     }
     @media (max-width: 576px) {
       bottom: 20px;
-      padding: 18px 40px;
+      padding: 11px 20px;
       font-size: 12px;
-      line-height: 16px;
+      line-height: 15px;
+    }
+    svg {
+      fill: $BROWN;
+      width: 14px;
+      height: 14px;
+      margin-left: 15px;
     }
   }
   .buttonForSwiper {
