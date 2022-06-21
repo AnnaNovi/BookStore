@@ -100,6 +100,7 @@ export default defineComponent({
     grid-template-rows: none;
     column-gap: 11px;
     row-gap: none;
+    margin-top: 30px;
     img {
       width: 100%;
       object-fit: cover;
