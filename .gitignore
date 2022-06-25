@@ -26,3 +26,5 @@ pnpm-debug.log*
 src/components/Template.vue
 src/values.ts
 src/assets/_variables.scss
+/index.html
+/requests.http

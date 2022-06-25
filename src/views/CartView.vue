@@ -19,7 +19,7 @@
         <hr :class="$style.line">
       </template>
       <div :class="$style.totalPriceBlock">
-        <p><span>Итого: </span>{{ this.totalCartPrice }}</p>
+        <p><span>Итого: </span>{{ totalCartPrice }}</p>
         <ButtonBrown
           :paddingLR="70"
           @click="$router.push('/order')"
@@ -41,17 +41,6 @@ import { mapActions, mapGetters } from 'vuex';
 import BookCartBar from '../components/BookCartBar.vue';
 import TheLoader from '../components/TheLoader.vue';
 import ButtonBrown from '../ui/ButtonBrown.vue';
-
-interface booksType {
-  author: string,
-  authorId: string,
-  title: string,
-  price: number,
-  image: string,
-  key: string,
-  discount: number | null,
-  quantityInCart: number
-}
 
 export default defineComponent({
   name: 'CartView',

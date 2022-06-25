@@ -4,21 +4,21 @@
       <img :src="imageSrc" alt="" :class="$style.image">
     </div>
     <div :class="$style.titleBlock">
-      <p :class="$style.author">{{ this.book?.author }}</p>
+      <p :class="$style.author">{{ book?.author }}</p>
       <div
         :class="$style.title"
         @click="this.$router.push(`/books/${bookId}`)"
-      >{{ this.book?.title }}</div>
+      >{{ book?.title }}</div>
     </div>
     <div :class="$style.quantityBlock">
         <button
           :class="$style.quantityButton"
-          @click="handleQuantityButton(this.book?.key, 'decrease')"
+          @click="handleQuantityButton(book?.key, 'decrease')"
         >-</button>
-        <span :class="$style.quantity">{{ this.book?.quantityInCart }}</span>
+        <span :class="$style.quantity">{{ book?.quantityInCart }}</span>
         <button
           :class="$style.quantityButton"
-          @click="handleQuantityButton(this.book?.key, 'increase')"
+          @click="handleQuantityButton(book?.key, 'increase')"
         >+</button>
     </div>
     <div :class="$style.price">
@@ -35,7 +35,7 @@
     <div :class="$style.closeBlock">
       <svg
         :class="$style.iconClose"
-        @click="removeCartBook(this.book.key)"
+        @click="removeCartBook(book.key)"
       >
         <use href="../assets/sprite.svg#close"/>
       </svg>
@@ -47,6 +47,8 @@
   import { defineComponent } from 'vue';
   import { PropType } from '@vue/runtime-core';
   import { mapActions, mapGetters } from 'vuex';
+  import { getDiscountPrice } from '../helpers/index';
+  import { getBookId } from '../helpers/index';
 
   interface bookObject {
     author: string,
@@ -82,7 +84,7 @@
         const discount = this.book?.discount;
         const price = this.book?.price;
         const quantity = this.book?.quantityInCart;
-        return (discount && price && quantity) ? quantity * Math.ceil(price * (100 - discount)/100) : null; 
+        return (discount && price && quantity) ? quantity * getDiscountPrice(discount, price) : null; 
       },
       countPrice(): number | null{
         const price = this.book?.price;
@@ -90,9 +92,7 @@
         return (price && quantity) ? price * quantity : null;
       },
       bookId(): string{
-        const bookIdSeparate = (this.book) ? this.book.key.split('/') : [];
-        const bookId = bookIdSeparate[bookIdSeparate.length - 1];
-        return bookId;
+        return (this.book) ? getBookId(this.book.key) : 'Error';
       }
     },
     watch: {

@@ -17,7 +17,6 @@ import FeaturesBar from '../components/FeautersBar.vue';
 import BooksSwiper from '../components/BooksSwiper.vue';
 import AboutCompanyShort from '../components/AboutCompanyShort.vue';
 import AboutEventsShort from '../components/AboutEventsShort.vue';
-import { mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'HomeView',
@@ -28,14 +27,6 @@ export default defineComponent({
     AboutCompanyShort,
     AboutEventsShort
   },
-  methods: {
-    ...mapActions([
-      'getAllSwiperBooks'
-    ])
-  },
-  mounted(){
-    this.getAllSwiperBooks();
-  }
 });
 </script>
 

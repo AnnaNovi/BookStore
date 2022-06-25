@@ -4,16 +4,16 @@
     <div :class="$style.textBlock">
       <a
         :class="$style.title"
-        @click="handleTitleBlogButton(this.post.id)"
+        @click="handleTitleBlogButton(post.id)"
       >
-        <span ref="title">{{ this.post.title }}</span>
+        <span ref="title">{{ post.title }}</span>
         <span
           v-show="addDots"
           :class="$style.titleDots"
           ref="titleDots"
         >...</span>
       </a>
-      <p :class="$style.date">{{ getPostDate(this.post.id) }}</p>
+      <p :class="$style.date">{{ postDate }}</p>
     </div>
   </div>
 </template>
@@ -21,15 +21,12 @@
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import { mapActions } from 'vuex';
+  import { getPostDate } from '../helpers/index';
 
   interface postsType {
     id: number,
     title: string,
     image: string,
-    image2?: string,
-    image3?: string,
-    image4?: string,
-    body?: string
   }
 
   export default defineComponent({
@@ -44,21 +41,15 @@
         type: Object as PropType<postsType>
       }
     },
+    computed: {
+      postDate(){
+        return (this.post?.id) ? getPostDate(this.post?.id) : 'Ошибка!';
+      }
+    },
     methods: {
       ...mapActions([
         'getPostById'
       ]),
-      getPostDate(id: number){
-        const fullDate = new Date(
-          2022,
-          new Date().getMonth() - id, 
-          15
-        );
-        const year = fullDate.getFullYear();
-        const month = fullDate.getMonth() + 1;
-        const date = fullDate.getDate();
-        return `${(date < 10) ? '0' + date : date}.${(month < 10) ? '0' + month : month}.${year}`;
-      },
       checkAddDots(){
         const titleElement = (this.$refs["title"] as HTMLSpanElement);
         const titleDotsElement = (this.$refs["titleDots"] as HTMLSpanElement);

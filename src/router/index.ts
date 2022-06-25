@@ -8,8 +8,9 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Главная',
       subscription: true,
+      isNavigation: false,
     },
-    component: HomeView
+    component: HomeView,
   },
   {
     path: '/about',
@@ -17,8 +18,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'О нас',
       subscription: false,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
   },
   {
     path: '/events',
@@ -26,8 +29,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Мероприятия',
       subscription: true,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "events" */ '../views/EventsView.vue')
+    component: () =>
+      import(/* webpackChunkName: "events" */ '../views/EventsView.vue'),
   },
   {
     path: '/discounts',
@@ -35,8 +40,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Скидки',
       subscription: false,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "discounts" */ '../views/DiscountsView.vue')
+    component: () =>
+      import(/* webpackChunkName: "discounts" */ '../views/DiscountsView.vue'),
   },
   {
     path: '/blog',
@@ -44,24 +51,30 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Блог',
       subscription: false,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "blog" */ '../views/BlogView.vue')
+    component: () =>
+      import(/* webpackChunkName: "blog" */ '../views/BlogView.vue'),
   },
   {
     path: '/blog/:id',
     name: 'post',
     meta: {
       subscription: false,
+      isNavigation: false,
     },
-    component: () => import(/* webpackChunkName: "post" */ '../views/BlogSingleView.vue')
+    component: () =>
+      import(/* webpackChunkName: "post" */ '../views/BlogSingleView.vue'),
   },
   {
     path: '/books/:id',
     name: 'book',
     meta: {
       subscription: false,
+      isNavigation: false,
     },
-    component: () => import(/* webpackChunkName: "book" */ '../views/BookView.vue')
+    component: () =>
+      import(/* webpackChunkName: "book" */ '../views/BookView.vue'),
   },
   {
     path: '/delivery',
@@ -69,8 +82,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Доставка и оплата',
       subscription: false,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "delivery" */ '../views/DeliveryView.vue')
+    component: () =>
+      import(/* webpackChunkName: "delivery" */ '../views/DeliveryView.vue'),
   },
   {
     path: '/contacts',
@@ -78,8 +93,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Контакты',
       subscription: false,
+      isNavigation: true,
     },
-    component: () => import(/* webpackChunkName: "contacts" */ '../views/ContactsView.vue')
+    component: () =>
+      import(/* webpackChunkName: "contacts" */ '../views/ContactsView.vue'),
   },
   {
     path: '/favorites',
@@ -87,8 +104,10 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Избранное',
       subscription: true,
+      isNavigation: false,
     },
-    component: () => import(/* webpackChunkName: "favorites" */ '../views/FavoritesView.vue')
+    component: () =>
+      import(/* webpackChunkName: "favorites" */ '../views/FavoritesView.vue'),
   },
   {
     path: '/cart',
@@ -96,33 +115,59 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: 'Корзина',
       subscription: false,
+      isNavigation: false,
     },
-    component: () => import(/* webpackChunkName: "cart" */ '../views/CartView.vue')
+    component: () =>
+      import(/* webpackChunkName: "cart" */ '../views/CartView.vue'),
   },
   {
     path: '/order',
     name: 'order',
     meta: {
       subscription: false,
+      isNavigation: false,
     },
-    component: () => import(/* webpackChunkName: "cart" */ '../views/PageInProgress.vue')
+    component: () =>
+      import(/* webpackChunkName: "cart" */ '../views/PageInProgress.vue'),
+  },
+  {
+    path: '/catalog',
+    name: 'catalog',
+    meta: {
+      title: 'Каталог',
+      subscription: false,
+      isNavigation: false,
+    },
+    component: () =>
+      import(/* webpackChunkName: "cart" */ '../views/CatalogView.vue'),
   },
   {
     path: '/inProgress',
-    alias: ['/catalog'],
+    alias: [],
     name: 'inProgress',
-    component: () => import(/* webpackChunkName: "inProgress" */ '../views/PageInProgress.vue')
+    meta: {
+      subscription: false,
+      isNavigation: false,
+    },
+    component: () =>
+      import(
+        /* webpackChunkName: "inProgress" */ '../views/PageInProgress.vue'
+      ),
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'notfound',
-    component: () => import(/* webpackChunkName: "pathMatch" */ '../views/PageNotFound.vue')
+    meta: {
+      subscription: false,
+      isNavigation: false,
+    },
+    component: () =>
+      import(/* webpackChunkName: "pathMatch" */ '../views/PageNotFound.vue'),
   },
-]
+];
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
 
-/* process.env.BASE_URL */
