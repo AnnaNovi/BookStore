@@ -11,8 +11,8 @@
       <div :class="$style.image">
         <img :src="imageSrc" alt="" :class="$style.image">
         <button
-          :class="[$style.like, {[$style.active]: this.like}]"
-          @click="handleLikeButton(this.activeBook.key)"
+          :class="[$style.like, {[$style.active]: like}]"
+          @click="handleLikeButton(activeBook.key)"
         >
           <svg>
             <use href="../assets/sprite.svg#like"/>
@@ -86,10 +86,11 @@ import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import TheLoader from '../components/TheLoader.vue';
 import BooksSwiper from '../components/BooksSwiper.vue';
-import ButtonBrown from '../ui/ButtonBrown.vue'
+import ButtonBrown from '../ui/ButtonBrown.vue';
+import { getDiscountPrice } from '../helpers/index';
 
 export default defineComponent({
-  name: 'BlogSingleView',
+  name: 'BookView',
   data(){
     return {
       loadContent: true,
@@ -110,10 +111,10 @@ export default defineComponent({
       return `https://covers.openlibrary.org/b/olid/${this.activeBook?.image}-L.jpg`
     },
     discountPrice(): number | null{
-      return (this.activeBook?.discount) ? Math.ceil(this.activeBook?.price * (100 - this.activeBook?.discount)/100) : null; 
+      return (this.activeBook?.discount) ? getDiscountPrice(this.activeBook?.discount, this.activeBook?.price) : null;
     },
     featureList(): Array<Array<string | number>>{
-      return [
+      return [ 
         ['Издательство', 'BomBora'],
         ['Год публикации', this.activeBook.publisherYear],
         ['Количество страниц', this.activeBook.quantityOfPage],
@@ -126,12 +127,11 @@ export default defineComponent({
   },
   watch: {
     activeBook(){
-      this.loadContent = false;
+      this.loadContent = !this.loadContent;
       this.checkFavoritesBook(this.activeBook?.key)
       .then(result => {
         this.like = result;
       })
-      this.getSimilarBooks(this.activeBook?.subject);
     },
   },
   methods: {
@@ -139,7 +139,6 @@ export default defineComponent({
       'getBookById',
       'toggleFavoritesBook',
       'checkFavoritesBook',
-      'getSimilarBooks'
     ]),
     handleLikeButton(bookKey: string){
       this.toggleFavoritesBook(bookKey);

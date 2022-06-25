@@ -5,6 +5,8 @@ interface postsType {
   id: number,
   title: string,
   image: string,
+}
+interface postActiveType extends postsType {
   image2?: string,
   image3?: string,
   image4?: string,
@@ -13,7 +15,7 @@ interface postsType {
 export interface postsStateType {
   posts: postsType[],
   imageUrl: string[],
-  activePost: postsType[],
+  activePost: postActiveType[],
   postsPage: number,
   postsLimit: number,
 }
@@ -41,7 +43,7 @@ export const blogPosts = ({
     GET_IMAGE_URL(state: postsStateType, data: string) {
       return state.imageUrl.push(data);
     },
-    GET_POST_BY_ID(state: postsStateType, data: postsType){
+    GET_POST_BY_ID(state: postsStateType, data: postActiveType){
       return state.activePost.push(data);
     },
     INCREASE_PAGE(state: postsStateType){

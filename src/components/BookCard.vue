@@ -1,18 +1,18 @@
 <template>
   <div :class="$style.bookCard">
     <div :class="$style.image">
-      <img :src="imageSrc" :alt="this.book.title">
+      <img :src="imageSrc" :alt="book.title">
     </div>
-    <div :class="$style.author">{{ this.book.author }}</div>
+    <div :class="$style.author">{{ book.author }}</div>
     <div
       :class="$style.title"
-      @click="this.$router.push(`/books/${bookId}`)"
-    >{{ this.book.title }}</div>
+      @click="getBook()"
+    >{{ book.title }}</div>
     <div :class="$style.price">
       <span
         :class="{[$style.lastPrice]: !!discountPrice}"
       >
-        {{ this.book.price }}
+        {{ book.price }}
       </span>
       <span
         v-if="!!discountPrice"
@@ -20,8 +20,8 @@
       >{{ discountPrice }}</span>
     </div>
     <button
-      :class="[$style.like, {[$style.active]: this.like}]"
-      @click="handleLikeButton(this.book.key)"
+      :class="[$style.like, {[$style.active]: like}]"
+      @click="handleLikeButton(book.key)"
     >
       <svg>
         <use href="../assets/sprite.svg#like"/>
@@ -29,7 +29,7 @@
     </button>
     <button
       :class="$style.cart"
-      @click="handleCartButton(this.book.key)"
+      @click="handleCartButton(book.key)"
     >
       <svg>
         <use href="../assets/sprite.svg#cart"/>
@@ -37,8 +37,8 @@
     </button>
     <div
       :class="$style.sale"
-      v-if="this.book.discount"
-    >{{ this.book.discount }}%</div>
+      v-if="book.discount"
+    >{{ book.discount }}%</div>
   </div>
 </template>
 
@@ -46,6 +46,8 @@
   import { defineComponent } from 'vue';
   import { mapActions, mapGetters } from 'vuex';
   import { PropType } from '@vue/runtime-core';
+  import { getDiscountPrice } from '../helpers/index';
+  import { getBookId } from '../helpers/index';
 
   interface bookObject {
     author: string,
@@ -83,19 +85,18 @@
         return `https://covers.openlibrary.org/b/olid/${this.book?.image}-${this.imageSize}.jpg`
       },
       discountPrice(): number | null{
-        return (this.book?.discount) ? Math.ceil(this.book?.price * (100 - this.book?.discount)/100) : null; 
+        return (this.book?.discount) ? getDiscountPrice(this.book?.discount, this.book?.price) : null;
       },
       bookId(): string{
-        const bookIdSeparate = (this.book) ? this.book.key.split('/') : [];
-        const bookId = bookIdSeparate[bookIdSeparate.length - 1];
-        return bookId;
+        return (this.book) ? getBookId(this.book.key) : 'Error';
       }
     },
     methods: {
       ...mapActions([
         'toggleFavoritesBook',
         'checkFavoritesBook',
-        'addCartBook'
+        'addCartBook',
+        'getBookById'
       ]),
       handleLikeButton(bookKey: string){
         this.toggleFavoritesBook(bookKey);
@@ -105,6 +106,10 @@
       handleCartButton(bookKey: string){
         this.addCartBook(bookKey);
         localStorage.setItem('cartList', JSON.stringify([...this.cartList]));
+      },
+      getBook(){
+        this.$router.push(`/books/${this.bookId}`);
+        this.getBookById(this.bookId);
       }
     },
     mounted(){

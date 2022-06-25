@@ -48,7 +48,7 @@
       }
     },
     mounted(){
-      const routerArray = this.$router.options.routes.filter(link => link.meta?.title && !['/', '/favorites', '/cart'].includes(link.path));
+      const routerArray = this.$router.options.routes.filter(link => link.meta?.isNavigation);
       this.navigationLinks = [...routerArray];
     }
   });

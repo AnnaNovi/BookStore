@@ -4,6 +4,7 @@
       :slides-per-view="1"
       :initial-slide="1"
       :loop="true"
+      :speed=1500
       :class="$style.goToCatalogSwiper"
       @swiper="onSwiper"
     >
@@ -66,8 +67,17 @@
       },
       changeSlide(direction: string){
         (direction === 'next') ? this.swiper.slideNext() : this.swiper.slidePrev();
-      }
-    }
+      },
+      changeSlideAuto(){
+        return setTimeout(() => {
+          this.swiper.slideNext();
+          this.changeSlideAuto();
+        }, 10000);
+      },
+    },
+    mounted(){
+      this.changeSlideAuto();
+    },
   });
 </script>
 

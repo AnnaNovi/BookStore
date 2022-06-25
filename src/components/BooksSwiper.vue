@@ -35,7 +35,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   import { Swiper, SwiperSlide } from 'swiper/vue';
   import BookCard from './BookCard.vue'
   import 'swiper/css';
@@ -79,7 +79,8 @@
         'discountBooksSwiper',
         'popularBooksSwiper',
         'recommendsBooksSwiper',
-        'similarBooksSwiper'
+        'similarBooksSwiper',
+        'activeBook'
       ]),
       currentBooksSwiper(){
         return (this.type === 'discount') ? this.discountBooksSwiper : 
@@ -89,27 +90,29 @@
       },
     },
     watch: {
-      discountBooksSwiper(){
-        this.loadContent = false;
-      },
-      popularBooksSwiper(){
-        this.loadContent = false;
-      },
-      recommendsBooksSwiper(){
-        this.loadContent = false;
-      },
-      similarBooksSwiper(){
+      currentBooksSwiper(){
         this.loadContent = false;
       }
     },
     methods: {
+      ...mapActions([
+        'getSimilarBooks',
+        'getAllSwiperBooks'
+      ]),
       onSwiper(swiper: typeof Swiper){
         this.swiper = swiper;
       },
       changeSlide(direction: string){
         (direction === 'next') ? this.swiper.slideNext() : this.swiper.slidePrev();
+      },
+    },
+    mounted(){
+      if (this.type === 'similar') {
+        this.getSimilarBooks(this.activeBook.subject);
+      } else {
+        this.getAllSwiperBooks()
       }
-    }
+    },
   });
 </script>
 
