@@ -135,6 +135,11 @@
     bottom: 70px;
     z-index: 5;
     cursor: pointer;
+    transition: 1s;
+    &:hover {
+      transition: 0.5s;
+      background: rgba(255, 255, 255, 1);
+    }
     @media (max-width: 992px) {
       bottom: 50px;
     }

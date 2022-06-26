@@ -5,25 +5,31 @@ import { discountBooks, discountBooksStateType } from './modules/discountBooks';
 import { indexPageBooks, indexPageBooksStateType } from './modules/indexPageBooks';
 import { blogPosts, postsStateType } from './modules/blogPosts';
 import { cart, cartStateType } from './modules/cart';
+import { catalog, catalogStateType } from './modules/catalog';
+import { catalogBooks, catalogBooksStateType } from './modules/catalogBooks';
 
 export interface RootState {
   modules: {
-    books: booksStateType,
-    discountBooks: discountBooksStateType,
-    favorites: favoritesStateType,
-    indexPageBooks: indexPageBooksStateType,
-    blogPosts: postsStateType,
-    cart: cartStateType
-  }
+    blogPosts: postsStateType;
+    books: booksStateType;
+    cart: cartStateType;
+    catalog: catalogStateType;
+    catalogBooks: catalogBooksStateType;
+    discountBooks: discountBooksStateType;
+    favorites: favoritesStateType;
+    indexPageBooks: indexPageBooksStateType;
+  };
 }
 
 export default createStore({
   modules: {
+    blogPosts,
     books,
+    cart,
+    catalog,
+    catalogBooks,
     discountBooks,
     favorites,
     indexPageBooks,
-    blogPosts,
-    cart
   }
 })

@@ -1,19 +1,24 @@
+import { ActionContext } from 'vuex';
+import { RootState } from '../index';
 interface catalogSubcategoriesType {
-  subtitle: string,
-  query: string
+  subtitle: string;
+  query: string;
 }
 interface catalogType {
   title: string;
+  commonQuery: string;
   subcategories: catalogSubcategoriesType[];
 }
 export interface catalogStateType {
   catalog: catalogType[];
+  activeCategory: catalogType;
 }
-export const catalogBooks = {
+export const catalog = {
   state: () => ({
     catalog: [
       {
         title: 'Художественная литература',
+        commonQuery: 'fiction',
         subcategories: [
           {
             subtitle: 'Фэнтези',
@@ -71,6 +76,7 @@ export const catalogBooks = {
       },
       {
         title: 'Книги для детей',
+        commonQuery: 'juvenile_fiction',
         subcategories: [
           {
             subtitle: 'Детские Книги',
@@ -96,6 +102,7 @@ export const catalogBooks = {
       },
       {
         title: 'Книги для подростков',
+        commonQuery: 'young_adult_fiction',
         subcategories: [
           {
             subtitle: 'Книги для подростков',
@@ -105,6 +112,7 @@ export const catalogBooks = {
       },
       {
         title: 'Бизнес и Финансы',
+        commonQuery: 'business',
         subcategories: [
           {
             subtitle: 'Менеджмент',
@@ -130,6 +138,7 @@ export const catalogBooks = {
       },
       {
         title: 'Биография',
+        commonQuery: 'biography',
         subcategories: [
           {
             title: 'Биография',
@@ -139,6 +148,7 @@ export const catalogBooks = {
       },
       {
         title: 'Социальные науки',
+        commonQuery: 'social',
         subcategories: [
           {
             title: 'Антропология',
@@ -160,6 +170,7 @@ export const catalogBooks = {
       },
       {
         title: 'Искусство',
+        commonQuery: 'art',
         subcategories: [
           {
             subtitle: 'Архитектура',
@@ -213,6 +224,7 @@ export const catalogBooks = {
       },
       {
         title: 'Здоровье и здоровый образ жизни',
+        commonQuery: 'health',
         subcategories: [
           {
             subtitle: 'Приготовление еды',
@@ -241,11 +253,30 @@ export const catalogBooks = {
         ],
       },
     ],
+    activeCategory: {},
   }),
   getters: {
     catalogList(state: catalogStateType) {
       return state.catalog;
     },
+    activeCategory(state: catalogStateType) {
+      return state.activeCategory;
+    },
+  },
+  mutations: {
+    SET_ACTIVE_CATEGORY(state: catalogStateType, data: catalogType) {
+      return (state.activeCategory = {...data});
+    },
+  },
+  actions: {
+    setActiveCategory(
+      { commit, state }: ActionContext<catalogStateType, RootState>,
+      categoryPath: string
+    ) {
+      const activeCategory = state.catalog.filter(
+        (category) => category.commonQuery === categoryPath
+      )[0];
+      commit('SET_ACTIVE_CATEGORY', activeCategory);
+    },
   },
 };
-
