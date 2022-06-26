@@ -1,10 +1,10 @@
 <template>
   <section>
-    <h1 :class="$style.title">Скидки</h1>
+    <h1 :class="$style.title">{{ activeCategory.title }}</h1>
     <TheLoader v-if="loadContent"/>
     <div :class="$style.bookCardsBlock">
       <BookCard
-        v-for="(book, index) in discountBooksList"
+        v-for="(book, index) in catalogBooksList"
         :key="index"
         :book="book"
       />
@@ -14,12 +14,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import BookCard from '../components/BookCard.vue';
 import TheLoader from '../components/TheLoader.vue';
 
 export default defineComponent({
-  name: 'DiscountsView',
+  name: 'CatalogSingleView',
   data(){
     return {
       loadContent: true
@@ -31,34 +31,34 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters([
-      'discountBooksList'
+      'activeCategory',
+      'catalogBooksList'
     ])
-  },
-  watch: {
-    discountBooksList(){
-      this.loadContent = false;
-    }
   },
   methods: {
     ...mapActions([
-      'getDiscountBooks'
+      'getCatalogBooks',
+      'setActiveCategory'
     ])
   },
-  mounted(){
-    if(this.discountBooksList.length) {
+  watch: {
+    catalogBooksList(){
       this.loadContent = false;
-    } else {
-      this.getDiscountBooks();
     }
+  },
+  mounted() {
+    const chosenCategory = this.$route.params.category;
+    this.setActiveCategory(chosenCategory);
+    this.getCatalogBooks(chosenCategory);
   }
 });
 </script>
 
 <style lang="scss" module>
-  .title {
-    @include title;
-  }
-  .bookCardsBlock {
-    @include booksBlock;
-  }
+.title {
+  @include title;
+}
+.bookCardsBlock {
+  @include booksBlock;
+}
 </style>

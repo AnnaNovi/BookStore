@@ -15,7 +15,7 @@ export interface catalogBooksStateType {
   quantityOfBooks: number | null;
 }
 
-export const discountBooks = {
+export const catalogBooks = {
   state: () => ({
     catalogBooks: [],
     quantityOfBooks: null,
@@ -26,22 +26,26 @@ export const discountBooks = {
     },
     quantityOfBooks(state: catalogBooksStateType) {
       return state.quantityOfBooks;
-    }
+    },
   },
   mutations: {
     GET_CATALOG_BOOKS(state: catalogBooksStateType, data: booksType[]) {
       return (state.catalogBooks = [...data]);
     },
     GET_QUANTITY_OF_BOOKS(state: catalogBooksStateType, quantity: number) {
-      return state.quantityOfBooks = quantity;
+      return (state.quantityOfBooks = quantity);
     },
   },
   actions: {
     async getCatalogBooks(
-      { commit }: ActionContext<catalogBooksStateType, RootState>,
+      {
+        commit,
+        state,
+      }: ActionContext<catalogBooksStateType, RootState>,
       catalogType: string,
       page = 1
     ) {
+      state.catalogBooks.length = 0;
       const fields = `
         author_name,
         author_key,

@@ -142,6 +142,16 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "cart" */ '../views/CatalogView.vue'),
   },
   {
+    path: '/catalog/:category',
+    name: 'category',
+    meta: {
+      subscription: false,
+      isNavigation: false,
+    },
+    component: () =>
+      import(/* webpackChunkName: "cart" */ '../views/CatalogSingleView.vue'),
+  },
+  {
     path: '/inProgress',
     alias: [],
     name: 'inProgress',

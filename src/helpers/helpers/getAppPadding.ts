@@ -1,4 +1,4 @@
-export function getAppPadding(windowWidth: number){
+export function getAppPadding(windowWidth: number): number{
   if (windowWidth <= 375) {
     return 11;
   } else if (windowWidth <= 450) {
